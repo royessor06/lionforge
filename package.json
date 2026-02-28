@@ -8,9 +8,17 @@
     "start": "next start"
   },
   "dependencies": {
+    "emailjs-com": "^3.2.0",
+    "framer-motion": "^12.34.3",
+    "fuse.js": "^7.1.0",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-hook-form": "^7.71.2",
+    "react-icons": "^5.5.0",
+    "react-intersection-observer": "^10.0.3",
+    "react-tsparticles": "^2.12.2",
+    "swiper": "^12.1.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
