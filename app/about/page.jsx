@@ -4,9 +4,9 @@ import MotionWrapper from "@/app/components/MotionWrapper";
 export default function About() {
   // Données de l'équipe pour plus de clarté
   const team = [
-    { name: "Léo Akpovi", role: "Fondateur & CEO", emoji: "🦁" },
-    { name: "Marie Adjovi", role: "CTO", emoji: "👩‍💻" },
-    { name: "Jean Hounkpatin", role: "Lead Developer", emoji: "👨‍💻" },
+    { name: "Roy SAVY", role: "Fondateur & CEO", emoji: "🦁" },
+    { name: "Ruth ADJOVI", role: "CTO", emoji: "👩‍💻" },
+    { name: "Roy SAVY", role: "Lead Developer", emoji: "👨‍💻" },
   ];
 
   return (
