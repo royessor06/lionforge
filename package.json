@@ -8,6 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@iconify/react": "^6.0.2",
+    "@phosphor-icons/react": "^2.1.10",
+    "@vercel/analytics": "^1.6.1",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^12.34.3",
     "fuse.js": "^7.1.0",

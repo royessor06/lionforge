@@ -3,7 +3,8 @@
 import { useState } from "react";
 import ProjectCard from "@/app/components/ProjectCard";
 import MotionWrapper from "@/app/components/MotionWrapper";
-import ProjectCarousel from "@/app/components/ProjectCarousel"; // 👈 Import ajouté
+import ProjectCarousel from "@/app/components/ProjectCarousel";
+import { Funnel, GridFour, SquaresFour } from "@phosphor-icons/react";
 
 const projects = [
   { 
@@ -63,69 +64,78 @@ export default function ProjectsPage() {
     <div className="min-h-screen bg-lion-dark text-white py-20 px-6">
       <div className="max-w-7xl mx-auto">
         
-        {/* En-tête avec animation */}
-        <MotionWrapper direction="flip" duration={0.9}>
-          <h1 className="text-5xl md:text-6xl font-bold text-lion-gold text-center mb-6">
+        <MotionWrapper direction="scale" duration={0.8}>
+          <h1 className="text-5xl md:text-6xl font-bold text-gradient text-center mb-6">
             Nos Projets
           </h1>
         </MotionWrapper>
         
         <MotionWrapper direction="up" delay={0.2} distance={20}>
-          <p className="text-xl text-lion-light text-center max-w-3xl mx-auto mb-12">
+          <p className="text-xl text-lion-muted text-center max-w-3xl mx-auto mb-12">
             Découvrez quelques réalisations qui illustrent notre savoir-faire.
           </p>
         </MotionWrapper>
 
-        {/* Carousel - NOUVEAU ! */}
-        <MotionWrapper delay={0.3}>
+        {/* Carousel */}
+        {/* <MotionWrapper delay={0.3}>
           <ProjectCarousel />
-        </MotionWrapper>
+        </MotionWrapper> */}
 
-        {/* Filtres avec animations */}
+        {/* Filtres avec icône */}
         <MotionWrapper delay={0.4} direction="fade">
-          <div className="flex flex-wrap justify-center gap-4 my-12">
-            {categories.map((cat, index) => (
-              <MotionWrapper 
-                key={cat} 
-                delay={0.5 + index * 0.1}
-                direction="zoom-out"
-                duration={0.4}
-              >
-                <button
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-6 py-2 rounded-full border transition-all duration-300 transform hover:scale-105 ${
-                    selectedCategory === cat
-                      ? "bg-lion-gold text-lion-dark border-lion-gold shadow-lg shadow-lion-gold/30"
-                      : "border-lion-gold/30 text-lion-light hover:border-lion-gold hover:bg-lion-gold/5"
-                  }`}
+          <div className="flex flex-col items-center gap-4 my-12">
+            <div className="flex items-center gap-2 text-lion-muted mb-2">
+              <Funnel size={20} weight="duotone" className="text-lion-gold" />
+              <span className="text-sm">Filtrer par catégorie</span>
+            </div>
+            
+            <div className="flex flex-wrap justify-center gap-4">
+              {categories.map((cat, index) => (
+                <MotionWrapper 
+                  key={cat} 
+                  delay={0.5 + index * 0.1}
+                  direction="zoom-out"
+                  duration={0.4}
                 >
-                  {cat}
-                </button>
-              </MotionWrapper>
-            ))}
+                  <button
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-6 py-2 rounded-full border transition-all duration-300 flex items-center gap-2 ${
+                      selectedCategory === cat
+                        ? "bg-lion-gold text-lion-dark border-lion-gold"
+                        : "border-lion-gold border-opacity-30 text-lion-light hover:border-lion-gold hover:bg-lion-gold hover:bg-opacity-10"
+                    }`}
+                  >
+                    {cat === "Tous" && <GridFour size={16} weight={selectedCategory === cat ? "fill" : "duotone"} />}
+                    {cat === "Web" && <span>🌐</span>}
+                    {cat === "Mobile" && <span>📱</span>}
+                    {cat === "Sur mesure" && <SquaresFour size={16} weight={selectedCategory === cat ? "fill" : "duotone"} />}
+                    {cat}
+                  </button>
+                </MotionWrapper>
+              ))}
+            </div>
           </div>
         </MotionWrapper>
 
-        {/* Grille des projets avec animations en cascade */}
+        {/* Grille des projets */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project, index) => (
             <MotionWrapper 
               key={project.slug} 
               delay={0.6 + index * 0.1}
-              direction="rotate"
-              distance={15}
-              duration={0.7}
+              direction="slide-up"
+              distance={30}
+              duration={0.6}
             >
               <ProjectCard {...project} />
             </MotionWrapper>
           ))}
         </div>
 
-        {/* Message si aucun projet */}
         {filteredProjects.length === 0 && (
-          <MotionWrapper delay={0.9}>
+          <MotionWrapper delay={0.8}>
             <div className="text-center py-12">
-              <p className="text-lion-light text-xl">Aucun projet dans cette catégorie pour le moment.</p>
+              <p className="text-lion-muted text-xl">Aucun projet dans cette catégorie pour le moment.</p>
             </div>
           </MotionWrapper>
         )}
