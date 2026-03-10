@@ -1,5 +1,3 @@
-"use client";
-
 import MotionWrapper from "@/app/components/MotionWrapper";
 import Link from "next/link";
 import { ArrowLeft } from "@phosphor-icons/react";
