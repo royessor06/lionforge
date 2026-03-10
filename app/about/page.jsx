@@ -18,22 +18,22 @@ import {
 
 const team = [
   { 
-    name: "Léo Akpovi", 
+    name: "Roy Savy", 
     role: "Fondateur & CEO", 
     icon: <Crown size={48} weight="duotone" className="text-lion-gold" />,
-    bio: "Passionné de tech avec 10 ans d'expérience dans le développement web et mobile." 
+    bio: "------"
   },
   { 
-    name: "Marie Adjovi", 
+    name: "Roy Savy", 
     role: "CTO", 
     icon: <Cpu size={48} weight="duotone" className="text-lion-gold" />,
-    bio: "Experte en architecture logicielle et en intelligence artificielle." 
+    bio: "------"
   },
   { 
-    name: "Jean Hounkpatin", 
+    name: "Roy Savy", 
     role: "Lead Developer", 
     icon: <Code size={48} weight="duotone" className="text-lion-gold" />,
-    bio: "Spécialiste React et Next.js, il transforme les idées en réalité." 
+    bio: "------" 
   },
 ];
 
