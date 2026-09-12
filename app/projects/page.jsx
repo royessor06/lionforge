@@ -3,53 +3,8 @@
 import { useState } from "react";
 import ProjectCard from "@/app/components/ProjectCard";
 import MotionWrapper from "@/app/components/MotionWrapper";
-import ProjectCarousel from "@/app/components/ProjectCarousel";
+import { projects } from "@/app/data/content";
 import { Funnel, GridFour, SquaresFour } from "@phosphor-icons/react";
-
-const projects = [
-  { 
-    title: "E‑commerce Luxe", 
-    category: "Web", 
-    image: null, 
-    slug: "ecommerce-luxe", 
-    stack: "Next.js, Shopify" 
-  },
-  { 
-    title: "App Fitness", 
-    category: "Mobile", 
-    image: null, 
-    slug: "app-fitness", 
-    stack: "React Native" 
-  },
-  { 
-    title: "ERP Industriel", 
-    category: "Sur mesure", 
-    image: null, 
-    slug: "erp-industriel", 
-    stack: "Django, PostgreSQL" 
-  },
-  { 
-    title: "Site Vitrine Design", 
-    category: "Web", 
-    image: null, 
-    slug: "site-vitrine-design", 
-    stack: "Vue.js" 
-  },
-  { 
-    title: "Application de Livraison", 
-    category: "Mobile", 
-    image: null, 
-    slug: "app-livraison", 
-    stack: "Flutter" 
-  },
-  { 
-    title: "CRM Sur Mesure", 
-    category: "Sur mesure", 
-    image: null, 
-    slug: "crm-sur-mesure", 
-    stack: "Laravel" 
-  },
-];
 
 const categories = ["Tous", "Web", "Mobile", "Sur mesure"];
 
@@ -75,11 +30,6 @@ export default function ProjectsPage() {
             Découvrez quelques réalisations qui illustrent notre savoir-faire.
           </p>
         </MotionWrapper>
-
-        {/* Carousel */}
-        {/* <MotionWrapper delay={0.3}>
-          <ProjectCarousel />
-        </MotionWrapper> */}
 
         {/* Filtres avec icône */}
         <MotionWrapper delay={0.4} direction="fade">

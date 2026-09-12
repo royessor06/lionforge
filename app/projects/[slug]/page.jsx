@@ -1,70 +1,15 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import MotionWrapper from "@/app/components/MotionWrapper";
-import { ArrowLeft } from "@phosphor-icons/react";
+import { projects } from "@/app/data/content";
 
-// Simuler une base de données de projets
-const projectsData = {
-  "ecommerce-luxe": {
-    title: "E‑commerce Luxe",
-    category: "Web",
-    description: "Plateforme e-commerce haut de gamme avec une expérience utilisateur premium et des performances optimisées.",
-    longDescription: "Développement d'une plateforme e-commerce complète pour une marque de luxe. Interface élégante, paiement sécurisé, gestion de stock en temps réel, et dashboard administrateur personnalisé.",
-    image: null,
-    stack: ["Next.js", "Shopify", "TailwindCSS", "Stripe"],
-    features: [
-      "Catalogue produits dynamique",
-      "Panier d'achat en temps réel",
-      "Paiement sécurisé",
-      "Dashboard admin",
-      "SEO optimisé",
-      "Responsive design"
-    ],
-    year: "2025",
-    client: "Luxe Brand",
-  },
-  "app-fitness": {
-    title: "App Fitness",
-    category: "Mobile",
-    description: "Application de suivi fitness avec coaching personnalisé et programmes d'entraînement adaptatifs.",
-    longDescription: "Application mobile cross-platform pour le suivi fitness. Intégration avec Apple Health/Google Fit, programmes personnalisés, suivi des performances, et communauté sociale.",
-    image: null,
-    stack: ["React Native", "Node.js", "MongoDB", "Firebase"],
-    features: [
-      "Suivi des activités",
-      "Programmes personnalisés",
-      "Intégration santé",
-      "Réseau social",
-      "Notifications push",
-      "Mode hors-ligne"
-    ],
-    year: "2025",
-    client: "FitTech Startup",
-  },
-  "erp-industriel": {
-    title: "ERP Industriel",
-    category: "Sur mesure",
-    description: "Système de gestion d'entreprise complet pour l'industrie manufacturière.",
-    longDescription: "Solution ERP sur mesure pour une entreprise industrielle. Gestion des stocks, production, RH, comptabilité, et reporting avancé.",
-    image: null,
-    stack: ["Django", "PostgreSQL", "React", "Docker"],
-    features: [
-      "Gestion de production",
-      "Suivi des stocks",
-      "Module RH",
-      "Comptabilité intégrée",
-      "Reporting avancé",
-      "Multi-sites"
-    ],
-    year: "2024",
-    client: "Industrie Métallurgique",
-  },
-};
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }));
+}
 
-export default function ProjectDetail({ params }) {
-  const project = projectsData[params.slug];
+export default async function ProjectDetail({ params }) {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
 
   if (!project) {
     return (
@@ -89,7 +34,7 @@ export default function ProjectDetail({ params }) {
             href="/projects" 
             className="inline-flex items-center gap-2 text-lion-muted hover:text-lion-gold transition-colors mb-8"
           >
-            <ArrowLeft size={20} />
+            <span aria-hidden="true">←</span>
             <span>Retour aux projets</span>
           </Link>
         </MotionWrapper>
@@ -97,9 +42,16 @@ export default function ProjectDetail({ params }) {
         {/* En-tête */}
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <MotionWrapper direction="scale" duration={0.8}>
-            <div className="aspect-video bg-lion-surface rounded-2xl border border-lion-gold border-opacity-20 flex items-center justify-center">
+            <div className="relative aspect-video bg-lion-surface rounded-2xl border border-lion-gold border-opacity-20 flex items-center justify-center overflow-hidden">
               {project.image ? (
-                <Image src={project.image} alt={project.title} fill className="object-cover rounded-2xl" />
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
+                  priority
+                />
               ) : (
                 <span className="text-8xl text-lion-gold text-opacity-50">
                   {project.category === "Web" ? "🌐" : project.category === "Mobile" ? "📱" : "⚙️"}

@@ -1,7 +1,6 @@
 "use client";
 
 import MotionWrapper from "@/app/components/MotionWrapper";
-import Image from "next/image";
 import Link from "next/link";
 import { 
   Rocket, 
@@ -21,19 +20,19 @@ const team = [
     name: "Roy Savy", 
     role: "Fondateur & CEO", 
     icon: <Crown size={48} weight="duotone" className="text-lion-gold" />,
-    bio: "------"
+    bio: "Pilotage produit, stratégie digitale et accompagnement client."
   },
   { 
-    name: "Roy Savy", 
-    role: "CTO", 
+    name: "Équipe technique", 
+    role: "Développement & architecture", 
     icon: <Cpu size={48} weight="duotone" className="text-lion-gold" />,
-    bio: "------"
+    bio: "Conception d'applications web, mobiles et systèmes métier."
   },
   { 
-    name: "Roy Savy", 
-    role: "Lead Developer", 
+    name: "Partenaires créatifs", 
+    role: "Design & expérience utilisateur", 
     icon: <Code size={48} weight="duotone" className="text-lion-gold" />,
-    bio: "------" 
+    bio: "Interfaces claires, contenus structurés et parcours efficaces." 
   },
 ];
 
@@ -85,9 +84,9 @@ export default function About() {
                 <h2 className="text-2xl font-bold text-lion-gold">Notre histoire</h2>
               </div>
               <p className="text-lion-light leading-relaxed">
-                Fondée en 2020, <span className="text-lion-gold">LionForge</span> est née de la passion de deux ingénieurs pour le code et l'innovation.
-                Depuis, nous avons accompagné plus de 50 startups et entreprises dans leur transformation numérique,
-                en apportant des solutions sur mesure, robustes et élégantes.
+                Fondée au Bénin, <span className="text-lion-gold">LionForge</span> accompagne les entrepreneurs, PME et organisations
+                qui veulent transformer une idée ou un besoin métier en produit digital fiable.
+                Notre approche privilégie la clarté, la qualité technique et la proximité avec le client.
               </p>
             </div>
           </MotionWrapper>

@@ -1,63 +1,7 @@
 import BlogCard from "@/app/components/BlogCard";
 import MotionWrapper from "@/app/components/MotionWrapper";
 import SearchBar from "@/app/components/SearchBar";
-
-const blogPosts = [
-  {
-    title: "Les tendances du développement web en 2025",
-    excerpt: "Découvrez les frameworks, outils et pratiques qui façonneront le web cette année.",
-    date: "12 mars 2025",
-    image: null,
-    slug: "tendances-dev-web-2025",
-    category: "Développement",
-    readTime: "5 min",
-  },
-  {
-    title: "Comment choisir entre natif et cross-platform ?",
-    excerpt: "Un guide pour vous aider à décider quelle approche adopter pour votre application mobile.",
-    date: "5 février 2025",
-    image: null,
-    slug: "natif-vs-cross-platform",
-    category: "Mobile",
-    readTime: "7 min",
-  },
-  {
-    title: "L'IA au service de l'expérience utilisateur",
-    excerpt: "Comment intégrer l'intelligence artificielle pour améliorer l'UX de vos applications.",
-    date: "20 janvier 2025",
-    image: null,
-    slug: "ia-ux",
-    category: "IA",
-    readTime: "6 min",
-  },
-  {
-    title: "Sécuriser votre application web : bonnes pratiques",
-    excerpt: "Les mesures essentielles à mettre en place pour protéger vos données.",
-    date: "8 décembre 2024",
-    image: null,
-    slug: "securite-app-web",
-    category: "Sécurité",
-    readTime: "8 min",
-  },
-  {
-    title: "Next.js 15 : Les nouveautés à connaître",
-    excerpt: "Découvrez les dernières fonctionnalités du framework React préféré des développeurs.",
-    date: "15 novembre 2024",
-    image: null,
-    slug: "nextjs-15-nouveautes",
-    category: "Développement",
-    readTime: "4 min",
-  },
-  {
-    title: "Optimisation des performances web",
-    excerpt: "Techniques et outils pour rendre vos sites plus rapides et améliorer le SEO.",
-    date: "22 octobre 2024",
-    image: null,
-    slug: "optimisation-performances-web",
-    category: "Performance",
-    readTime: "6 min",
-  },
-];
+import { blogPosts } from "@/app/data/content";
 
 export default function BlogPage() {
   return (

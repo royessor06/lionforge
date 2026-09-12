@@ -1,16 +1,11 @@
 import ServiceDetailClient from "./ServiceDetailClient";
+import { services } from "@/app/data/content";
 
 export async function generateStaticParams() {
-  const services = [
-    { slug: "web-development" },
-    { slug: "mobile-apps" },
-    { slug: "custom-solutions" },
-    { slug: "maintenance" },
-  ];
-
   return services.map((service) => ({ slug: service.slug }));
 }
 
-export default function Page({ params }) {
-  return <ServiceDetailClient slug={params.slug} />;
+export default async function Page({ params }) {
+  const { slug } = await params;
+  return <ServiceDetailClient slug={slug} />;
 }

@@ -4,23 +4,38 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Code, DeviceMobile, Lightning } from "@phosphor-icons/react";
 
+const heroParticles = [
+  { top: "12%", left: "18%", delay: "0s", duration: "8s" },
+  { top: "24%", left: "72%", delay: "1.2s", duration: "10s" },
+  { top: "38%", left: "84%", delay: "2.4s", duration: "9s" },
+  { top: "52%", left: "11%", delay: "0.8s", duration: "11s" },
+  { top: "65%", left: "28%", delay: "3s", duration: "7s" },
+  { top: "74%", left: "78%", delay: "1.8s", duration: "12s" },
+  { top: "18%", left: "45%", delay: "3.4s", duration: "8s" },
+  { top: "86%", left: "52%", delay: "0.4s", duration: "10s" },
+  { top: "44%", left: "61%", delay: "2.8s", duration: "9s" },
+  { top: "30%", left: "25%", delay: "4s", duration: "13s" },
+  { top: "68%", left: "6%", delay: "1s", duration: "8s" },
+  { top: "8%", left: "90%", delay: "2s", duration: "11s" },
+];
+
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Fond avec gradient subtil */}
-      <div className="absolute inset-0 bg-gradient-to-br from-lion-dark via-lion-dark to-lion-electric bg-opacity-20"></div>
+      <div className="absolute inset-0 bg-linear-to-br from-lion-dark via-lion-dark to-lion-electric bg-opacity-20"></div>
       
       {/* Particules décoratives */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(15)].map((_, i) => (
+        {heroParticles.map((particle, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-lion-gold bg-opacity-30 rounded-full animate-float"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${5 + Math.random() * 10}s`,
+              top: particle.top,
+              left: particle.left,
+              animationDelay: particle.delay,
+              animationDuration: particle.duration,
             }}
           />
         ))}

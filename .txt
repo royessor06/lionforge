@@ -1,0 +1,3085 @@
+"use client";
+
+import Hero from "@/app/components/Hero";
+import ServiceCard from "@/app/components/ServiceCard";
+import ProjectCard from "@/app/components/ProjectCard";
+import MotionWrapper from "@/app/components/MotionWrapper";
+import { 
+  Rocket, 
+  Lightning, 
+  Handshake,
+  Code,
+  DeviceMobile,
+  Gear,
+  Wrench,
+  Star,
+  Target,
+  ArrowRight
+} from "@phosphor-icons/react";
+import Link from "next/link";
+import Image from "next/image";
+
+const services = [
+  {
+    title: "Développement Web",
+    description: "Sites vitrines, plateformes e‑commerce, applications SaaS.",
+    slug: "web-development",
+    icon: <Code size={32} weight="duotone" className="text-lion-gold" />,
+  },
+  {
+    title: "Applications Mobiles",
+    description: "iOS, Android, cross‑platform (React Native, Flutter).",
+    slug: "mobile-apps",
+    icon: <DeviceMobile size={32} weight="duotone" className="text-lion-gold" />,
+  },
+  {
+    title: "Solutions Sur Mesure",
+    description: "Systèmes métiers, automatisation, intégrations API.",
+    slug: "custom-solutions",
+    icon: <Gear size={32} weight="duotone" className="text-lion-gold" />,
+  },
+  {
+    title: "Maintenance & Support",
+    description: "Optimisation, sécurité, mises à jour continues.",
+    slug: "maintenance",
+    icon: <Wrench size={32} weight="duotone" className="text-lion-gold" />,
+  },
+];
+
+const projects = [
+  { title: "E‑commerce Luxe", category: "Web", image: null, slug: "ecommerce-luxe", stack: "Next.js, Shopify" },
+  { title: "App Fitness", category: "Mobile", image: null, slug: "app-fitness", stack: "React Native" },
+  { title: "ERP Industriel", category: "Sur mesure", image: null, slug: "erp-industriel", stack: "Django, PostgreSQL" },
+];
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+
+      {/* Présentation rapide */}
+      <section className="relative py-20 px-6 bg-gradient-to-b from-lion-dark via-lion-dark to-black overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-lion-gold to-transparent opacity-50"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-lion-gold opacity-5 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-20 w-64 h-64 bg-lion-electric opacity-5 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <MotionWrapper direction="scale" duration={0.8}>
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient mb-6">
+              Qui sommes‑nous ?
+            </h2>
+          </MotionWrapper>
+          
+          <MotionWrapper direction="up" delay={0.2} distance={30} duration={0.7}>
+            <p className="text-xl md:text-2xl text-lion-light leading-relaxed">
+              <span className="text-lion-gold font-semibold">LionForge</span> est une agence de développement technologique basée au Bénin.
+              Nous accompagnons les entreprises dans leur transformation digitale
+              avec des solutions robustes, évolutives et élégantes.
+            </p>
+          </MotionWrapper>
+          
+          {/* Statistiques - AVEC ICÔNES PHOSPHOR */}
+          <div className="flex flex-wrap justify-center gap-8 sm:gap-12 mt-12">
+            {[
+              { 
+                value: "50+", 
+                label: "Projets livrés", 
+                icon: <Lightning size={36} weight="duotone" className="text-lion-gold group-hover:text-lion-electric transition-colors" />
+              },
+              { 
+                value: "4", 
+                label: "Ans d'expertise", 
+                icon: <Star size={36} weight="duotone" className="text-lion-gold group-hover:text-lion-electric transition-colors" />
+              },
+              { 
+                value: "100%", 
+                label: "Satisfaction", 
+                icon: <Target size={36} weight="duotone" className="text-lion-gold group-hover:text-lion-electric transition-colors" />
+              },
+            ].map((stat, i) => (
+              <MotionWrapper 
+                key={i} 
+                delay={0.3 + i * 0.1}
+                direction="zoom-out"
+                duration={0.6}
+              >
+                <div className="text-center group">
+                  <div className="mb-2 flex justify-center">
+                    {stat.icon}
+                  </div>
+                  <div className="text-3xl font-bold text-lion-gold group-hover:text-lion-electric transition-colors">
+                    {stat.value}
+                  </div>
+                  <div className="text-lion-muted text-sm uppercase tracking-wider">
+                    {stat.label}
+                  </div>
+                </div>
+              </MotionWrapper>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section className="relative py-20 px-6 bg-gradient-to-b from-black to-lion-dark overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <MotionWrapper direction="fade" duration={0.8}>
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient text-center mb-4">
+              Nos services
+            </h2>
+            <p className="text-lion-muted text-center mb-12 max-w-2xl mx-auto">
+              Des solutions complètes pour tous vos besoins digitaux
+            </p>
+          </MotionWrapper>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((service, index) => (
+              <MotionWrapper 
+                key={service.slug} 
+                delay={index * 0.1}
+                direction="slide-up"
+                distance={30}
+                duration={0.5}
+                className="h-full"
+              >
+                <ServiceCard {...service} />
+              </MotionWrapper>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projets récents */}
+      <section className="relative py-20 px-6 bg-gradient-to-b from-lion-dark to-black overflow-hidden">
+        <div className="absolute top-0 left-0 w-64 h-64 bg-lion-gold opacity-5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-lion-electric opacity-5 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <MotionWrapper direction="fade" duration={0.9}>
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient text-center mb-4">
+              Projets récents
+            </h2>
+            <p className="text-lion-muted text-center mb-12 max-w-2xl mx-auto">
+              Découvrez quelques-unes de nos réalisations
+            </p>
+          </MotionWrapper>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((project, i) => (
+              <MotionWrapper 
+                key={project.slug} 
+                delay={i * 0.15}
+                direction="slide-up"
+                distance={30}
+                duration={0.6}
+              >
+                <ProjectCard {...project} />
+              </MotionWrapper>
+            ))}
+          </div>
+          
+          <MotionWrapper delay={0.4} direction="fade">
+            <div className="text-center mt-12">
+              <Link 
+                href="/projects" 
+                className="group inline-flex items-center gap-2 text-lion-electric hover:text-lion-gold transition-colors text-lg"
+              >
+                <span>Voir tous nos projets</span>
+                <ArrowRight 
+                  size={20} 
+                  className="group-hover:translate-x-2 transition-transform" 
+                  weight="bold"
+                />
+              </Link>
+            </div>
+          </MotionWrapper>
+        </div>
+      </section>
+
+      {/* Pourquoi nous choisir */}
+      <section className="relative py-20 px-6 bg-gradient-to-b from-black to-lion-dark overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-lion-gold opacity-5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-5xl mx-auto relative z-10">
+          <MotionWrapper direction="scale" duration={0.8}>
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient text-center mb-4">
+              Pourquoi nous choisir ?
+            </h2>
+            <p className="text-lion-muted text-center mb-12">
+              Ce qui fait la différence chez LionForge
+            </p>
+          </MotionWrapper>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                icon: <Rocket size={40} weight="duotone" className="text-lion-gold" />,
+                title: "Expertise",
+                description: "Une équipe de développeurs expérimentés, passionnés par les technologies modernes.",
+                delay: 0.1,
+              },
+              {
+                icon: <Lightning size={40} weight="duotone" className="text-lion-gold" />,
+                title: "Agilité",
+                description: "Méthodes itératives pour livrer rapidement et s'adapter à vos besoins.",
+                delay: 0.2,
+              },
+              {
+                icon: <Handshake size={40} weight="duotone" className="text-lion-gold" />,
+                title: "Accompagnement",
+                description: "Suivi et maintenance après livraison, nous restons à vos côtés.",
+                delay: 0.3,
+              },
+            ].map((item, i) => (
+              <MotionWrapper 
+                key={i} 
+                delay={item.delay}
+                direction="slide-up"
+                distance={20}
+                duration={0.6}
+              >
+                <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-xl p-6 hover:border-lion-gold hover:border-opacity-60 hover:shadow-lg hover:shadow-lion-gold/20 transition-all duration-300 h-full">
+                  <div className="mb-4">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-lion-gold mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-lion-light opacity-70">
+                    {item.description}
+                  </p>
+                </div>
+              </MotionWrapper>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA final */}
+      <section className="relative py-32 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-lion-dark via-lion-dark to-lion-electric opacity-20"></div>
+        
+        {/* Particules */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(15)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-lion-gold opacity-30 rounded-full animate-float"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${5 + Math.random() * 10}s`,
+              }}
+            />
+          ))}
+        </div>
+        
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <MotionWrapper direction="scale" duration={0.8}>
+            <h2 className="text-5xl md:text-6xl font-bold text-gradient mb-6">
+              Prêt à démarrer ?
+            </h2>
+            <p className="text-xl text-lion-light mb-10 leading-relaxed">
+              Discutons de vos idées et construisons ensemble la solution qui répondra à vos enjeux.
+            </p>
+          </MotionWrapper>
+          
+          <MotionWrapper delay={0.2} direction="fade">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/contact"
+                className="bg-lion-gold text-lion-dark px-8 py-3 rounded-lg font-semibold 
+                         hover:bg-opacity-90 transition-all duration-300 
+                         shadow-lg shadow-lion-gold/20"
+              >
+                Contactez‑nous
+              </Link>
+              
+              <Link
+                href="/services"
+                className="border border-lion-gold text-lion-gold px-8 py-3 rounded-lg font-semibold 
+                         hover:bg-lion-gold hover:bg-opacity-10 transition-all duration-300"
+              >
+                Découvrir nos services
+              </Link>
+            </div>
+          </MotionWrapper>
+        </div>
+      </section>
+    </>
+  );
+}
+
+import MotionWrapper from "@/app/components/MotionWrapper";
+
+export default function RootLoading() {
+  return (
+    <div className="fixed inset-0 bg-lion-dark z-50 flex items-center justify-center">
+      <div className="text-center">
+        {/* Logo animé */}
+        <MotionWrapper direction="scale" duration={0.8} bounce={false}>
+          <div className="relative mb-8">
+            <div className="absolute inset-0 bg-lion-gold bg-opacity-20 rounded-full blur-3xl animate-pulse"></div>
+            <div className="relative w-24 h-24 mx-auto">
+              <div className="absolute inset-0 border-4 border-lion-gold border-opacity-20 rounded-full"></div>
+              <div className="absolute inset-0 border-4 border-lion-gold rounded-full animate-spin border-t-transparent"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-4xl">🦁</span>
+              </div>
+            </div>
+          </div>
+        </MotionWrapper>
+        
+        <MotionWrapper direction="up" delay={0.2}>
+          <h2 className="text-2xl font-bold text-lion-gold mb-4">
+            LionForge
+          </h2>
+        </MotionWrapper>
+        
+        {/* Barre de progression */}
+        <MotionWrapper delay={0.4} direction="fade">
+          <div className="w-64 h-1 bg-lion-gold bg-opacity-20 rounded-full overflow-hidden mx-auto">
+            <div className="h-full bg-gradient-to-r from-lion-gold to-lion-electric rounded-full animate-progress"></div>
+          </div>
+        </MotionWrapper>
+        
+        <MotionWrapper delay={0.6}>
+          <p className="text-lion-muted mt-4 text-sm">
+            Chargement de l'application...
+          </p>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+import { Inter } from "next/font/google";
+import "./globals.css";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
+import PageTransition from "@/app/components/PageTransition";
+import { Analytics } from "@vercel/analytics/react";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata = {
+  metadataBase: new URL("https://lionforge.vercel.app"),
+  title: {
+    default: "LionForge - Agence de développement web & mobile",
+    template: "%s | LionForge",
+  },
+  description: "Agence de développement web et mobile, solutions sur mesure pour entreprises. Next.js, React Native, applications SaaS.",
+  keywords: ["développement web", "application mobile", "React", "Next.js", "SaaS", "agence digitale"],
+  authors: [{ name: "LionForge", url: "https://lionforge.vercel.app" }],
+  creator: "LionForge",
+  openGraph: {
+    title: "LionForge - Solutions digitales sur mesure",
+    description: "Donnez vie à vos projets avec des technologies modernes.",
+    url: "https://lionforge.vercel.app",
+    siteName: "LionForge",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "LionForge",
+      },
+    ],
+    locale: "fr_FR",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="fr" className="scroll-smooth">
+      <head>
+        <link rel="icon" href="/favicon1.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
+      </head>
+      <body className={`${inter.className} bg-lion-dark text-white antialiased`} suppressHydrationWarning>
+        <Navbar />
+        <main className="pt-20 min-h-screen">
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </main>
+        <Footer />
+        <Analytics />
+      </body>
+    </html>
+  );
+}
+
+@reference "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --lion-dark: #0A0F1E;
+    --lion-gold: #FBBF24;
+    --lion-electric: #3B82F6;
+    --lion-light: #F3F4F6;
+    --lion-muted: #94A3B8;
+    --lion-surface: #111827;
+  }
+
+  body {
+    background-color: var(--lion-dark);
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  a:hover {
+    text-decoration: none;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: var(--lion-dark);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(251, 191, 36, 0.3);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(251, 191, 36, 0.5);
+  }
+}
+
+@layer components {
+  .glass-card {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .gradient-text {
+    background: linear-gradient(to right, var(--lion-gold), var(--lion-electric));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .hover-glow {
+    transition: all 0.3s;
+  }
+  .hover-glow:hover {
+    box-shadow: 0 10px 25px -5px rgba(251, 191, 36, 0.2);
+  }
+  
+  .card {
+    background-color: var(--lion-surface);
+    border-radius: 1rem;
+    transition: all 0.5s;
+  }
+}
+
+@layer utilities {
+  .hide-mobile {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    .hide-mobile {
+      display: block;
+    }
+  }
+  
+  .show-mobile {
+    display: block;
+  }
+  @media (min-width: 768px) {
+    .show-mobile {
+      display: none;
+    }
+  }
+  
+  .text-gradient {
+    background: linear-gradient(to right, var(--lion-gold), var(--lion-electric));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .glass {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Utilitaires d'espacement supplémentaires */
+  .section-padding {
+    @apply py-16 px-6 md:py-20;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+}
+
+"use client";
+
+import MotionWrapper from "@/app/components/MotionWrapper";
+import Image from "next/image";
+import Link from "next/link";
+import { 
+  Rocket, 
+  Lightning, 
+  Star, 
+  Users, 
+  BookOpen, 
+  Target, 
+  Diamond,
+  Crown,
+  Code,
+  Cpu
+} from "@phosphor-icons/react";
+
+const team = [
+  { 
+    name: "Roy Savy", 
+    role: "Fondateur & CEO", 
+    icon: <Crown size={48} weight="duotone" className="text-lion-gold" />,
+    bio: "------"
+  },
+  { 
+    name: "Roy Savy", 
+    role: "CTO", 
+    icon: <Cpu size={48} weight="duotone" className="text-lion-gold" />,
+    bio: "------"
+  },
+  { 
+    name: "Roy Savy", 
+    role: "Lead Developer", 
+    icon: <Code size={48} weight="duotone" className="text-lion-gold" />,
+    bio: "------" 
+  },
+];
+
+const stats = [
+  { value: "50+", label: "Projets livrés", icon: <Rocket size={36} weight="duotone" className="text-lion-gold" /> },
+  { value: "4", label: "Années d'expertise", icon: <Lightning size={36} weight="duotone" className="text-lion-gold" /> },
+  { value: "100%", label: "Satisfaction client", icon: <Star size={36} weight="duotone" className="text-lion-gold" /> },
+  { value: "10+", label: "Experts", icon: <Users size={36} weight="duotone" className="text-lion-gold" /> },
+];
+
+export default function About() {
+  return (
+    <div className="min-h-screen bg-lion-dark text-white py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        
+        <MotionWrapper direction="scale" duration={0.8}>
+          <h1 className="text-5xl md:text-6xl font-bold text-gradient text-center mb-6">
+            À propos de LionForge
+          </h1>
+        </MotionWrapper>
+
+        <MotionWrapper direction="up" delay={0.2} distance={20}>
+          <p className="text-xl text-lion-muted text-center max-w-3xl mx-auto mb-16">
+            Découvrez l'histoire, la vision et les valeurs qui animent notre agence au quotidien.
+          </p>
+        </MotionWrapper>
+
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+          {stats.map((stat, i) => (
+            <MotionWrapper key={i} delay={0.3 + i * 0.1} direction="zoom-out">
+              <div className="text-center">
+                <div className="mb-2 flex justify-center">
+                  {stat.icon}
+                </div>
+                <div className="text-3xl font-bold text-lion-gold">{stat.value}</div>
+                <div className="text-lion-muted text-sm">{stat.label}</div>
+              </div>
+            </MotionWrapper>
+          ))}
+        </div>
+
+        {/* Histoire */}
+        <div className="grid md:grid-cols-2 gap-12 mb-20">
+          <MotionWrapper direction="scale">
+            <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8 h-full">
+              <div className="flex items-center gap-2 mb-4">
+                <BookOpen size={28} weight="duotone" className="text-lion-gold" />
+                <h2 className="text-2xl font-bold text-lion-gold">Notre histoire</h2>
+              </div>
+              <p className="text-lion-light leading-relaxed">
+                Fondée en 2020, <span className="text-lion-gold">LionForge</span> est née de la passion de deux ingénieurs pour le code et l'innovation.
+                Depuis, nous avons accompagné plus de 50 startups et entreprises dans leur transformation numérique,
+                en apportant des solutions sur mesure, robustes et élégantes.
+              </p>
+            </div>
+          </MotionWrapper>
+
+          <MotionWrapper direction="scale" delay={0.2}>
+            <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8 h-full">
+              <div className="flex items-center gap-2 mb-4">
+                <Target size={28} weight="duotone" className="text-lion-gold" />
+                <h2 className="text-2xl font-bold text-lion-gold">Notre vision</h2>
+              </div>
+              <p className="text-lion-light leading-relaxed">
+                Devenir le partenaire technologique de référence pour les entreprises qui veulent allier performance
+                et design dans leurs outils digitaux, en France et à l'international.
+              </p>
+            </div>
+          </MotionWrapper>
+        </div>
+
+        {/* Mission et valeurs */}
+        <div className="grid md:grid-cols-2 gap-12 mb-20">
+          <MotionWrapper direction="slide-up">
+            <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8">
+              <div className="flex items-center gap-2 mb-4">
+                <Rocket size={28} weight="duotone" className="text-lion-gold" />
+                <h2 className="text-2xl font-bold text-lion-gold">Notre mission</h2>
+              </div>
+              <p className="text-lion-light leading-relaxed">
+                Fournir des solutions logicielles robustes, évolutives et élégantes, en plaçant l'humain et la qualité
+                au cœur de nos processus. Nous croyons en une technologie au service de la croissance.
+              </p>
+            </div>
+          </MotionWrapper>
+
+          <MotionWrapper direction="slide-up" delay={0.2}>
+            <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8">
+              <div className="flex items-center gap-2 mb-4">
+                <Diamond size={28} weight="duotone" className="text-lion-gold" />
+                <h2 className="text-2xl font-bold text-lion-gold">Nos valeurs</h2>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2 text-lion-light">
+                  <span className="w-2 h-2 bg-lion-gold rounded-full"></span>
+                  Excellence technique
+                </li>
+                <li className="flex items-center gap-2 text-lion-light">
+                  <span className="w-2 h-2 bg-lion-gold rounded-full"></span>
+                  Transparence
+                </li>
+                <li className="flex items-center gap-2 text-lion-light">
+                  <span className="w-2 h-2 bg-lion-gold rounded-full"></span>
+                  Innovation continue
+                </li>
+                <li className="flex items-center gap-2 text-lion-light">
+                  <span className="w-2 h-2 bg-lion-gold rounded-full"></span>
+                  Respect des délais
+                </li>
+              </ul>
+            </div>
+          </MotionWrapper>
+        </div>
+
+        {/* Équipe */}
+        <MotionWrapper direction="fade">
+          <h2 className="text-3xl font-bold text-gradient text-center mb-12 flex items-center justify-center gap-2">
+            <Users size={32} weight="duotone" className="text-lion-gold" />
+            Notre équipe
+          </h2>
+        </MotionWrapper>
+
+        <div className="grid md:grid-cols-3 gap-8 mb-20">
+          {team.map((member, i) => (
+            <MotionWrapper key={i} delay={0.5 + i * 0.1} direction="slide-up">
+              <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-6 text-center group hover:border-lion-gold hover:border-opacity-60 transition-all duration-300">
+                <div className="w-32 h-32 mx-auto mb-4 bg-lion-gold bg-opacity-10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  {member.icon}
+                </div>
+                <h3 className="text-xl font-bold text-lion-gold mb-1">{member.name}</h3>
+                <p className="text-lion-electric text-sm mb-3">{member.role}</p>
+                <p className="text-lion-light text-sm opacity-80">{member.bio}</p>
+              </div>
+            </MotionWrapper>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <MotionWrapper direction="scale">
+          <div className="text-center p-12 bg-lion-surface border border-lion-gold border-opacity-20 rounded-3xl">
+            <h2 className="text-3xl font-bold text-gradient mb-4">Rejoignez l'aventure</h2>
+            <p className="text-lion-muted mb-6 max-w-2xl mx-auto">
+              Vous aussi, faites partie de notre histoire. Nous recrutons des talents passionnés.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-block bg-lion-gold text-lion-dark px-8 py-3 rounded-xl font-semibold 
+                       hover:bg-opacity-90 transition-all duration-300 
+                       shadow-lg shadow-lion-gold/20"
+            >
+              Nous contacter
+            </Link>
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+import MotionWrapper from "@/app/components/MotionWrapper";
+
+export default function AboutLoading() {
+  return (
+    <div className="min-h-screen bg-lion-dark py-20 px-6">
+      <div className="max-w-4xl mx-auto">
+        
+        {/* En-tête */}
+        <MotionWrapper direction="scale" duration={0.8}>
+          <div className="text-center mb-12">
+            <div className="h-16 w-64 bg-lion-gold bg-opacity-20 rounded-lg mx-auto mb-4 animate-pulse"></div>
+            <div className="h-6 w-96 bg-lion-gold bg-opacity-10 rounded-lg mx-auto animate-pulse"></div>
+          </div>
+        </MotionWrapper>
+
+        {/* Stats squelettées */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+          {[1, 2, 3, 4].map((i) => (
+            <MotionWrapper key={i} delay={0.1 + i * 0.1}>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-lion-gold bg-opacity-20 rounded-full mx-auto mb-2 animate-pulse"></div>
+                <div className="h-8 w-16 bg-lion-gold bg-opacity-20 rounded-lg mx-auto mb-2 animate-pulse"></div>
+                <div className="h-4 w-20 bg-lion-gold bg-opacity-10 rounded-lg mx-auto animate-pulse"></div>
+              </div>
+            </MotionWrapper>
+          ))}
+        </div>
+
+        {/* Contenu squeletté */}
+        <div className="space-y-8">
+          {[1, 2, 3].map((i) => (
+            <MotionWrapper key={i} delay={0.3 + i * 0.1}>
+              <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8">
+                <div className="flex items-center mb-4">
+                  <div className="w-10 h-10 bg-lion-gold bg-opacity-20 rounded-full animate-pulse mr-3"></div>
+                  <div className="h-8 w-48 bg-lion-gold bg-opacity-20 rounded-lg animate-pulse"></div>
+                </div>
+                <div className="space-y-3">
+                  <div className="h-4 w-full bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                  <div className="h-4 w-5/6 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                  <div className="h-4 w-4/6 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                </div>
+              </div>
+            </MotionWrapper>
+          ))}
+        </div>
+
+        {/* Équipe squelettée */}
+        <MotionWrapper delay={0.6}>
+          <div className="mt-12">
+            <div className="h-10 w-40 bg-lion-gold bg-opacity-20 rounded-lg mx-auto mb-8 animate-pulse"></div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="text-center">
+                  <div className="w-32 h-32 bg-lion-gold bg-opacity-20 rounded-full mx-auto mb-4 animate-pulse"></div>
+                  <div className="h-5 w-24 bg-lion-gold bg-opacity-20 rounded-lg mx-auto mb-2 animate-pulse"></div>
+                  <div className="h-4 w-32 bg-lion-gold bg-opacity-10 rounded-lg mx-auto animate-pulse"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+import BlogCard from "@/app/components/BlogCard";
+import MotionWrapper from "@/app/components/MotionWrapper";
+import SearchBar from "@/app/components/SearchBar";
+
+const blogPosts = [
+  {
+    title: "Les tendances du développement web en 2025",
+    excerpt: "Découvrez les frameworks, outils et pratiques qui façonneront le web cette année.",
+    date: "12 mars 2025",
+    image: null,
+    slug: "tendances-dev-web-2025",
+    category: "Développement",
+    readTime: "5 min",
+  },
+  {
+    title: "Comment choisir entre natif et cross-platform ?",
+    excerpt: "Un guide pour vous aider à décider quelle approche adopter pour votre application mobile.",
+    date: "5 février 2025",
+    image: null,
+    slug: "natif-vs-cross-platform",
+    category: "Mobile",
+    readTime: "7 min",
+  },
+  {
+    title: "L'IA au service de l'expérience utilisateur",
+    excerpt: "Comment intégrer l'intelligence artificielle pour améliorer l'UX de vos applications.",
+    date: "20 janvier 2025",
+    image: null,
+    slug: "ia-ux",
+    category: "IA",
+    readTime: "6 min",
+  },
+  {
+    title: "Sécuriser votre application web : bonnes pratiques",
+    excerpt: "Les mesures essentielles à mettre en place pour protéger vos données.",
+    date: "8 décembre 2024",
+    image: null,
+    slug: "securite-app-web",
+    category: "Sécurité",
+    readTime: "8 min",
+  },
+  {
+    title: "Next.js 15 : Les nouveautés à connaître",
+    excerpt: "Découvrez les dernières fonctionnalités du framework React préféré des développeurs.",
+    date: "15 novembre 2024",
+    image: null,
+    slug: "nextjs-15-nouveautes",
+    category: "Développement",
+    readTime: "4 min",
+  },
+  {
+    title: "Optimisation des performances web",
+    excerpt: "Techniques et outils pour rendre vos sites plus rapides et améliorer le SEO.",
+    date: "22 octobre 2024",
+    image: null,
+    slug: "optimisation-performances-web",
+    category: "Performance",
+    readTime: "6 min",
+  },
+];
+
+export default function BlogPage() {
+  return (
+    <div className="min-h-screen bg-lion-dark text-white py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+        
+        <MotionWrapper direction="scale" duration={0.8}>
+          <h1 className="text-5xl md:text-6xl font-bold text-gradient text-center mb-6">
+            Blog
+          </h1>
+        </MotionWrapper>
+        
+        <MotionWrapper direction="up" delay={0.2} distance={20}>
+          <p className="text-xl text-lion-muted text-center max-w-3xl mx-auto mb-12">
+            Actualités, conseils et réflexions sur le développement et la technologie.
+          </p>
+        </MotionWrapper>
+
+        <MotionWrapper delay={0.3}>
+          <SearchBar posts={blogPosts} />
+        </MotionWrapper>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {blogPosts.map((post, index) => (
+            <MotionWrapper 
+              key={post.slug} 
+              delay={0.4 + index * 0.1}
+              direction="slide-up"
+              distance={30}
+              duration={0.6}
+            >
+              <BlogCard {...post} />
+            </MotionWrapper>
+          ))}
+        </div>
+
+        <MotionWrapper delay={0.9} direction="fade">
+          <div className="flex justify-center gap-2 mt-12">
+            {[1, 2, 3].map((page) => (
+              <button
+                key={page}
+                className={`w-10 h-10 rounded-lg border transition-all duration-300 ${
+                  page === 1
+                    ? "bg-lion-gold text-lion-dark border-lion-gold"
+                    : "border-lion-gold border-opacity-30 text-lion-light hover:border-lion-gold hover:bg-lion-gold hover:bg-opacity-10"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+import MotionWrapper from "@/app/components/MotionWrapper";
+
+export default function BlogLoading() {
+  return (
+    <div className="min-h-screen bg-lion-dark py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* En-tête */}
+        <MotionWrapper direction="scale" duration={0.8}>
+          <div className="text-center mb-12">
+            <div className="h-16 w-48 bg-lion-gold bg-opacity-20 rounded-lg mx-auto mb-4 animate-pulse"></div>
+            <div className="h-6 w-96 bg-lion-gold bg-opacity-10 rounded-lg mx-auto animate-pulse"></div>
+          </div>
+        </MotionWrapper>
+
+        {/* Barre de recherche placeholder */}
+        <MotionWrapper delay={0.2}>
+          <div className="max-w-2xl mx-auto mb-12">
+            <div className="h-14 bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl animate-pulse"></div>
+          </div>
+        </MotionWrapper>
+
+        {/* Grille d'articles */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <MotionWrapper 
+              key={i} 
+              delay={0.3 + i * 0.1}
+              direction="slide-up"
+              distance={20}
+            >
+              <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl overflow-hidden">
+                {/* Image */}
+                <div className="aspect-video bg-lion-gold bg-opacity-10 animate-pulse"></div>
+                
+                <div className="p-6 space-y-4">
+                  <div className="flex justify-between">
+                    <div className="h-5 w-20 bg-lion-gold bg-opacity-20 rounded-full animate-pulse"></div>
+                    <div className="h-4 w-16 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                  </div>
+                  <div className="h-6 w-full bg-lion-gold bg-opacity-20 rounded-lg animate-pulse"></div>
+                  <div className="space-y-2">
+                    <div className="h-4 w-full bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                    <div className="h-4 w-5/6 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                  </div>
+                  <div className="h-5 w-24 bg-lion-electric bg-opacity-20 rounded-lg animate-pulse"></div>
+                </div>
+              </div>
+            </MotionWrapper>
+          ))}
+        </div>
+
+        {/* Pagination */}
+        <MotionWrapper delay={0.9}>
+          <div className="flex justify-center gap-2 mt-12">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="w-10 h-10 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+            ))}
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+"use client";
+
+import ContactForm from "@/app/components/ContactForm";
+import MotionWrapper from "@/app/components/MotionWrapper";
+import { MapPin, Envelope, Phone, Clock } from "@phosphor-icons/react";
+
+export default function ContactPage() {
+  return (
+    <div className="min-h-screen bg-lion-dark text-white py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+        
+        <MotionWrapper direction="scale" duration={0.8}>
+          <h1 className="text-5xl md:text-6xl font-bold text-gradient text-center mb-6">
+            Contactez-nous
+          </h1>
+        </MotionWrapper>
+        
+        <MotionWrapper direction="up" delay={0.2} distance={20}>
+          <p className="text-xl text-lion-muted text-center max-w-3xl mx-auto mb-16">
+            Vous avez un projet en tête ? Une question ? Nous sommes là pour vous répondre.
+          </p>
+        </MotionWrapper>
+
+        {/* Cartes de contact - HAUTEUR FIXE */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+          <MotionWrapper delay={0.3} direction="zoom-out">
+            <div className="bg-lion-surface border border-lion-gold/20 p-6 rounded-xl hover:border-lion-gold/60 hover:shadow-[0_0_25px_rgba(251,191,36,0.15)] transition-all duration-300 group text-center h-[220px] flex flex-col justify-center">
+              <div className="w-16 h-16 bg-lion-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                <MapPin size={32} weight="duotone" className="text-lion-gold" />
+              </div>
+              <h3 className="text-lg font-semibold text-lion-gold mb-2">Notre bureau</h3>
+              <p className="text-lion-muted text-sm">
+                Derrière le CEG Pahou<br />
+                Pahou, Bénin
+              </p>
+            </div>
+          </MotionWrapper>
+
+          <MotionWrapper delay={0.4} direction="zoom-out">
+            <div className="bg-lion-surface border border-lion-gold/20 p-6 rounded-xl hover:border-lion-gold/60 hover:shadow-[0_0_25px_rgba(251,191,36,0.15)] transition-all duration-300 group text-center h-[220px] flex flex-col justify-center">
+              <div className="w-16 h-16 bg-lion-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                <Envelope size={32} weight="duotone" className="text-lion-gold" />
+              </div>
+              <h3 className="text-lg font-semibold text-lion-gold mb-2">Email</h3>
+              <p className="text-lion-muted text-sm">
+                <a href="mailto:contact@lionforge.com" className="hover:text-lion-gold transition-colors duration-300">
+                  contact@lionforge.com
+                </a>
+              </p>
+              <p className="text-lion-muted text-xs mt-2">Réponse sous 24h</p>
+            </div>
+          </MotionWrapper>
+
+          <MotionWrapper delay={0.5} direction="zoom-out">
+            <div className="bg-lion-surface border border-lion-gold/20 p-6 rounded-xl hover:border-lion-gold/60 hover:shadow-[0_0_25px_rgba(251,191,36,0.15)] transition-all duration-300 group text-center h-[220px] flex flex-col justify-center">
+              <div className="w-16 h-16 bg-lion-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                <Phone size={32} weight="duotone" className="text-lion-gold" />
+              </div>
+              <h3 className="text-lg font-semibold text-lion-gold mb-2">Téléphone</h3>
+              <p className="text-lion-muted text-sm">
+                <a href="tel:+2290151229682" className="hover:text-lion-gold transition-colors duration-300">
+                  +229 01 51 22 96 82
+                </a>
+              </p>
+              <p className="text-lion-muted text-xs mt-2">Lun-Ven, 8h-18h</p>
+            </div>
+          </MotionWrapper>
+
+          <MotionWrapper delay={0.6} direction="zoom-out">
+            <div className="bg-lion-surface border border-lion-gold/20 p-6 rounded-xl hover:border-lion-gold/60 hover:shadow-[0_0_25px_rgba(251,191,36,0.15)] transition-all duration-300 group text-center h-[220px] flex flex-col justify-center">
+              <div className="w-16 h-16 bg-lion-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                <Clock size={32} weight="duotone" className="text-lion-gold" />
+              </div>
+              <h3 className="text-lg font-semibold text-lion-gold mb-2">Horaires</h3>
+              <p className="text-lion-muted text-sm">
+                Lundi - Vendredi<br />
+                8h00 - 18h00
+              </p>
+            </div>
+          </MotionWrapper>
+        </div>
+
+        {/* Formulaire - ESPACEMENT UNIFORME AVEC LES CARTES */}
+        <MotionWrapper delay={0.7} direction="slide-up">
+          <div className="bg-lion-surface border border-lion-gold/20 p-10 rounded-2xl max-w-4xl mx-auto hover:border-lion-gold/60 transition-all duration-300 mb-20">
+            <h2 className="text-3xl font-bold text-gradient mb-8 text-center">
+              Envoyez-nous un message
+            </h2>
+            <ContactForm />
+          </div>
+        </MotionWrapper>
+
+        {/* Carte - MÊME ESPACEMENT QUE LE RESTE */}
+        <MotionWrapper delay={0.9} direction="fade">
+          <div className="h-[400px] rounded-xl overflow-hidden border border-lion-gold/20 hover:border-lion-gold/60 transition-all duration-300">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63482.62571275139!2d2.17955845!3d6.37846765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10233b5c2a3b9b9f%3A0x7f3b7e5b5e5b5e5b!2sPahou%2C%20B%C3%A9nin!5e0!3m2!1sfr!2sfr!4v1234567890123!5m2!1sfr!2sfr"
+              className="w-full h-full"
+              loading="lazy"
+              allowFullScreen
+            />
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+import MotionWrapper from "@/app/components/MotionWrapper";
+
+export default function ContactLoading() {
+  return (
+    <div className="min-h-screen bg-lion-dark py-20 px-6">
+      <div className="max-w-4xl mx-auto">
+        
+        {/* En-tête */}
+        <MotionWrapper direction="scale" duration={0.8}>
+          <div className="text-center mb-12">
+            <div className="h-16 w-64 bg-lion-gold bg-opacity-20 rounded-lg mx-auto mb-4 animate-pulse"></div>
+            <div className="h-6 w-96 bg-lion-gold bg-opacity-10 rounded-lg mx-auto animate-pulse"></div>
+          </div>
+        </MotionWrapper>
+
+        {/* Cartes de contact */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {[1, 2, 3, 4].map((i) => (
+            <MotionWrapper 
+              key={i} 
+              delay={0.2 + i * 0.1}
+              direction="zoom-out"
+            >
+              <div className="bg-lion-surface border border-lion-gold border-opacity-20 p-6 rounded-xl">
+                <div className="w-16 h-16 bg-lion-gold bg-opacity-20 rounded-2xl mx-auto mb-4 animate-pulse"></div>
+                <div className="h-5 w-24 bg-lion-gold bg-opacity-20 rounded-lg mx-auto mb-2 animate-pulse"></div>
+                <div className="h-4 w-32 bg-lion-gold bg-opacity-10 rounded-lg mx-auto animate-pulse"></div>
+                <div className="h-4 w-24 bg-lion-gold bg-opacity-10 rounded-lg mx-auto mt-2 animate-pulse"></div>
+              </div>
+            </MotionWrapper>
+          ))}
+        </div>
+
+        {/* Formulaire */}
+        <MotionWrapper delay={0.6}>
+          <div className="bg-lion-surface border border-lion-gold border-opacity-20 p-8 rounded-xl">
+            <div className="h-8 w-48 bg-lion-gold bg-opacity-20 rounded-lg mx-auto mb-8 animate-pulse"></div>
+            
+            <div className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <div className="h-4 w-24 bg-lion-gold bg-opacity-20 rounded-lg mb-2 animate-pulse"></div>
+                  <div className="h-12 w-full bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                </div>
+                <div>
+                  <div className="h-4 w-24 bg-lion-gold bg-opacity-20 rounded-lg mb-2 animate-pulse"></div>
+                  <div className="h-12 w-full bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                </div>
+              </div>
+              
+              <div>
+                <div className="h-4 w-24 bg-lion-gold bg-opacity-20 rounded-lg mb-2 animate-pulse"></div>
+                <div className="h-12 w-full bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+              </div>
+              
+              <div>
+                <div className="h-4 w-24 bg-lion-gold bg-opacity-20 rounded-lg mb-2 animate-pulse"></div>
+                <div className="h-32 w-full bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+              </div>
+              
+              <div className="flex justify-center">
+                <div className="h-12 w-40 bg-lion-gold bg-opacity-20 rounded-lg animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </MotionWrapper>
+
+        {/* Carte */}
+        <MotionWrapper delay={0.8}>
+          <div className="mt-12 h-64 bg-lion-surface border border-lion-gold border-opacity-20 rounded-xl animate-pulse flex items-center justify-center">
+            <div className="text-lion-muted">🗺️ Carte en cours de chargement...</div>
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+"use client";
+
+import ServiceCard from "@/app/components/ServiceCard";
+import MotionWrapper from "@/app/components/MotionWrapper";
+import Link from "next/link";
+import { 
+  Code, 
+  DeviceMobile, 
+  Gear, 
+  Wrench,
+  ChatText
+} from "@phosphor-icons/react";
+
+const services = [
+  {
+    title: "Développement Web",
+    description: "Sites vitrines, plateformes e‑commerce, applications SaaS.",
+    slug: "web-development",
+    icon: <Code size={32} weight="duotone" className="text-lion-gold" />,
+  },
+  {
+    title: "Applications Mobiles",
+    description: "iOS, Android, cross‑platform (React Native, Flutter).",
+    slug: "mobile-apps",
+    icon: <DeviceMobile size={32} weight="duotone" className="text-lion-gold" />,
+  },
+  {
+    title: "Solutions Sur Mesure",
+    description: "Systèmes métiers, automatisation, intégrations API.",
+    slug: "custom-solutions",
+    icon: <Gear size={32} weight="duotone" className="text-lion-gold" />,
+  },
+  {
+    title: "Maintenance & Support",
+    description: "Optimisation, sécurité, mises à jour continues.",
+    slug: "maintenance",
+    icon: <Wrench size={32} weight="duotone" className="text-lion-gold" />,
+  },
+];
+
+export default function ServicesPage() {
+  return (
+    <div className="min-h-screen bg-lion-dark text-white py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+        
+        <MotionWrapper direction="scale" duration={0.8}>
+          <h1 className="text-5xl md:text-6xl font-bold text-gradient text-center mb-6">
+            Nos Services
+          </h1>
+        </MotionWrapper>
+        
+        <MotionWrapper direction="up" delay={0.2} distance={20}>
+          <p className="text-xl text-lion-muted text-center max-w-3xl mx-auto mb-12">
+            Découvrez l'ensemble de nos prestations pour vous accompagner dans vos projets digitaux.
+          </p>
+        </MotionWrapper>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          {services.map((service, index) => (
+            <MotionWrapper 
+              key={service.slug} 
+              delay={0.3 + index * 0.1}
+              direction="slide-up"
+              distance={30}
+              duration={0.6}
+            >
+              <ServiceCard {...service} />
+            </MotionWrapper>
+          ))}
+        </div>
+        
+        <MotionWrapper delay={0.7} direction="fade">
+          <div className="mt-20 text-center p-10 bg-lion-surface border border-lion-gold border-opacity-20 rounded-3xl hover:border-lion-gold hover:border-opacity-60 transition-all duration-300">
+            <h2 className="text-3xl font-bold text-gradient mb-4 flex items-center justify-center gap-2">
+              <ChatText size={32} weight="duotone" className="text-lion-gold" />
+              Besoin d'un service personnalisé ?
+            </h2>
+            <p className="text-lion-muted mb-6 max-w-2xl mx-auto">
+              Chaque projet est unique. Contactez-nous pour discuter de vos besoins spécifiques.
+            </p>
+            <Link 
+              href="/contact"
+              className="inline-block bg-lion-gold text-lion-dark px-8 py-3 rounded-xl font-semibold 
+                       hover:bg-opacity-90 transition-all duration-300 
+                       shadow-lg shadow-lion-gold/20 hover:shadow-xl hover:shadow-lion-gold/30"
+            >
+              Discutons de votre projet
+            </Link>
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+import MotionWrapper from "@/app/components/MotionWrapper";
+
+export default function ServicesLoading() {
+  return (
+    <div className="min-h-screen bg-lion-dark py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* En-tête */}
+        <MotionWrapper direction="scale" duration={0.8}>
+          <div className="text-center mb-12">
+            <div className="h-16 w-64 bg-lion-gold bg-opacity-20 rounded-lg mx-auto mb-4 animate-pulse"></div>
+            <div className="h-6 w-96 bg-lion-gold bg-opacity-10 rounded-lg mx-auto animate-pulse"></div>
+          </div>
+        </MotionWrapper>
+
+        {/* Grille des services squelettée */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {[1, 2, 3, 4].map((i) => (
+            <MotionWrapper 
+              key={i} 
+              delay={0.2 + i * 0.1}
+              direction="slide-up"
+              distance={20}
+            >
+              <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-6">
+                <div className="flex items-start gap-4">
+                  {/* Icône */}
+                  <div className="w-16 h-16 bg-lion-gold bg-opacity-20 rounded-2xl animate-pulse"></div>
+                  
+                  <div className="flex-1 space-y-3">
+                    <div className="h-8 w-40 bg-lion-gold bg-opacity-20 rounded-lg animate-pulse"></div>
+                    <div className="space-y-2">
+                      <div className="h-4 w-full bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                      <div className="h-4 w-5/6 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                    </div>
+                    <div className="h-6 w-32 bg-lion-electric bg-opacity-20 rounded-lg animate-pulse mt-4"></div>
+                  </div>
+                </div>
+              </div>
+            </MotionWrapper>
+          ))}
+        </div>
+
+        {/* CTA squeletté */}
+        <MotionWrapper delay={0.6}>
+          <div className="mt-20 text-center p-10 bg-lion-surface border border-lion-gold border-opacity-20 rounded-3xl">
+            <div className="h-8 w-64 bg-lion-gold bg-opacity-20 rounded-lg mx-auto mb-4 animate-pulse"></div>
+            <div className="h-16 w-96 bg-lion-gold bg-opacity-10 rounded-lg mx-auto mb-6 animate-pulse"></div>
+            <div className="h-12 w-48 bg-lion-gold bg-opacity-20 rounded-xl mx-auto animate-pulse"></div>
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+"use client";
+
+import { useState } from "react";
+import ProjectCard from "@/app/components/ProjectCard";
+import MotionWrapper from "@/app/components/MotionWrapper";
+import ProjectCarousel from "@/app/components/ProjectCarousel";
+import { Funnel, GridFour, SquaresFour } from "@phosphor-icons/react";
+
+const projects = [
+  { 
+    title: "E‑commerce Luxe", 
+    category: "Web", 
+    image: null, 
+    slug: "ecommerce-luxe", 
+    stack: "Next.js, Shopify" 
+  },
+  { 
+    title: "App Fitness", 
+    category: "Mobile", 
+    image: null, 
+    slug: "app-fitness", 
+    stack: "React Native" 
+  },
+  { 
+    title: "ERP Industriel", 
+    category: "Sur mesure", 
+    image: null, 
+    slug: "erp-industriel", 
+    stack: "Django, PostgreSQL" 
+  },
+  { 
+    title: "Site Vitrine Design", 
+    category: "Web", 
+    image: null, 
+    slug: "site-vitrine-design", 
+    stack: "Vue.js" 
+  },
+  { 
+    title: "Application de Livraison", 
+    category: "Mobile", 
+    image: null, 
+    slug: "app-livraison", 
+    stack: "Flutter" 
+  },
+  { 
+    title: "CRM Sur Mesure", 
+    category: "Sur mesure", 
+    image: null, 
+    slug: "crm-sur-mesure", 
+    stack: "Laravel" 
+  },
+];
+
+const categories = ["Tous", "Web", "Mobile", "Sur mesure"];
+
+export default function ProjectsPage() {
+  const [selectedCategory, setSelectedCategory] = useState("Tous");
+
+  const filteredProjects = selectedCategory === "Tous"
+    ? projects
+    : projects.filter(p => p.category === selectedCategory);
+
+  return (
+    <div className="min-h-screen bg-lion-dark text-white py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+        
+        <MotionWrapper direction="scale" duration={0.8}>
+          <h1 className="text-5xl md:text-6xl font-bold text-gradient text-center mb-6">
+            Nos Projets
+          </h1>
+        </MotionWrapper>
+        
+        <MotionWrapper direction="up" delay={0.2} distance={20}>
+          <p className="text-xl text-lion-muted text-center max-w-3xl mx-auto mb-12">
+            Découvrez quelques réalisations qui illustrent notre savoir-faire.
+          </p>
+        </MotionWrapper>
+
+        {/* Carousel */}
+        {/* <MotionWrapper delay={0.3}>
+          <ProjectCarousel />
+        </MotionWrapper> */}
+
+        {/* Filtres avec icône */}
+        <MotionWrapper delay={0.4} direction="fade">
+          <div className="flex flex-col items-center gap-4 my-12">
+            <div className="flex items-center gap-2 text-lion-muted mb-2">
+              <Funnel size={20} weight="duotone" className="text-lion-gold" />
+              <span className="text-sm">Filtrer par catégorie</span>
+            </div>
+            
+            <div className="flex flex-wrap justify-center gap-4">
+              {categories.map((cat, index) => (
+                <MotionWrapper 
+                  key={cat} 
+                  delay={0.5 + index * 0.1}
+                  direction="zoom-out"
+                  duration={0.4}
+                >
+                  <button
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-6 py-2 rounded-full border transition-all duration-300 flex items-center gap-2 ${
+                      selectedCategory === cat
+                        ? "bg-lion-gold text-lion-dark border-lion-gold"
+                        : "border-lion-gold border-opacity-30 text-lion-light hover:border-lion-gold hover:bg-lion-gold hover:bg-opacity-10"
+                    }`}
+                  >
+                    {cat === "Tous" && <GridFour size={16} weight={selectedCategory === cat ? "fill" : "duotone"} />}
+                    {cat === "Web" && <span>🌐</span>}
+                    {cat === "Mobile" && <span>📱</span>}
+                    {cat === "Sur mesure" && <SquaresFour size={16} weight={selectedCategory === cat ? "fill" : "duotone"} />}
+                    {cat}
+                  </button>
+                </MotionWrapper>
+              ))}
+            </div>
+          </div>
+        </MotionWrapper>
+
+        {/* Grille des projets */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProjects.map((project, index) => (
+            <MotionWrapper 
+              key={project.slug} 
+              delay={0.6 + index * 0.1}
+              direction="slide-up"
+              distance={30}
+              duration={0.6}
+            >
+              <ProjectCard {...project} />
+            </MotionWrapper>
+          ))}
+        </div>
+
+        {filteredProjects.length === 0 && (
+          <MotionWrapper delay={0.8}>
+            <div className="text-center py-12">
+              <p className="text-lion-muted text-xl">Aucun projet dans cette catégorie pour le moment.</p>
+            </div>
+          </MotionWrapper>
+        )}
+      </div>
+    </div>
+  );
+}
+
+import MotionWrapper from "@/app/components/MotionWrapper";
+
+export default function ProjectsLoading() {
+  return (
+    <div className="min-h-screen bg-lion-dark py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* En-tête */}
+        <MotionWrapper direction="scale" duration={0.8}>
+          <div className="text-center mb-12">
+            <div className="h-16 w-64 bg-lion-gold bg-opacity-20 rounded-lg mx-auto mb-4 animate-pulse"></div>
+            <div className="h-6 w-96 bg-lion-gold bg-opacity-10 rounded-lg mx-auto animate-pulse"></div>
+          </div>
+        </MotionWrapper>
+
+        {/* Filtres */}
+        <MotionWrapper delay={0.2}>
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-10 w-24 bg-lion-gold bg-opacity-20 rounded-full animate-pulse"></div>
+            ))}
+          </div>
+        </MotionWrapper>
+
+        {/* Carousel placeholder */}
+        <MotionWrapper delay={0.3}>
+          <div className="w-full max-w-md mx-auto h-[400px] bg-lion-surface border border-lion-gold border-opacity-20 rounded-3xl mb-12 animate-pulse"></div>
+        </MotionWrapper>
+
+        {/* Grille de projets */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <MotionWrapper 
+              key={i} 
+              delay={0.4 + i * 0.1}
+              direction="slide-up"
+              distance={20}
+            >
+              <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl overflow-hidden">
+                {/* Image */}
+                <div className="aspect-video bg-lion-gold bg-opacity-10 animate-pulse"></div>
+                
+                <div className="p-6 space-y-4">
+                  <div className="flex justify-between">
+                    <div className="h-6 w-20 bg-lion-gold bg-opacity-20 rounded-full animate-pulse"></div>
+                    <div className="h-4 w-16 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                  </div>
+                  <div className="h-7 w-40 bg-lion-gold bg-opacity-20 rounded-lg animate-pulse"></div>
+                  <div className="h-5 w-32 bg-lion-electric bg-opacity-20 rounded-lg animate-pulse"></div>
+                </div>
+              </div>
+            </MotionWrapper>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+"use client";
+
+import MotionWrapper from "@/app/components/MotionWrapper";
+import Link from "next/link";
+import { ArrowLeft } from "@phosphor-icons/react";
+import { use } from "react";
+
+const serviceData = {
+  "web-development": {
+    title: "Développement Web",
+    description: "Nous créons des sites web et applications web sur mesure, performants et sécurisés.",
+    longDescription: "De la simple vitrine à la plateforme SaaS complexe, nous développons des solutions web robustes et évolutives qui répondent parfaitement à vos besoins métier.",
+    features: [
+      "Sites vitrines responsive",
+      "Plateformes e‑commerce",
+      "Applications SaaS",
+      "Progressive Web Apps (PWA)",
+      "APIs RESTful",
+      "CMS sur mesure"
+    ],
+    technologies: ["React", "Next.js", "Node.js", "Laravel", "Symfony", "TailwindCSS"],
+    icon: "🌐",
+  },
+  "mobile-apps": {
+    title: "Applications Mobiles",
+    description: "Développement d'applications mobiles natives et cross‑platform pour iOS et Android.",
+    longDescription: "Nous concevons des applications mobiles intuitives et performantes, que ce soit en natif pour une expérience optimale ou en cross-platform pour maximiser votre reach.",
+    features: [
+      "Applications iOS (Swift)",
+      "Applications Android (Kotlin)",
+      "Cross‑platform (React Native, Flutter)",
+      "Intégration API",
+      "Notifications push",
+      "Mode hors-ligne"
+    ],
+    technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase"],
+    icon: "📱",
+  },
+  "custom-solutions": {
+    title: "Solutions Sur Mesure",
+    description: "Des logiciels adaptés à vos processus métier pour gagner en efficacité.",
+    longDescription: "Nous développons des solutions logicielles entièrement personnalisées qui s'adaptent parfaitement à vos processus d'entreprise et vous permettent de gagner en productivité.",
+    features: [
+      "Systèmes de gestion (ERP, CRM)",
+      "Automatisation de tâches",
+      "Intégrations API",
+      "Portails métier",
+      "Tableaux de bord",
+      "Reporting avancé"
+    ],
+    technologies: ["Node.js", "Python", "Django", "PostgreSQL", "MongoDB", "Docker"],
+    icon: "⚙️",
+  },
+  "maintenance": {
+    title: "Maintenance & Support",
+    description: "Assurez la pérennité de vos applications avec nos contrats de maintenance.",
+    longDescription: "Nous vous accompagnons dans la durée avec des contrats de maintenance sur mesure pour garantir la sécurité, les performances et l'évolution de vos applications.",
+    features: [
+      "Optimisation des performances",
+      "Audit de sécurité",
+      "Mises à jour régulières",
+      "Support technique",
+      "Sauvegarde des données",
+      "Veille technologique"
+    ],
+    technologies: ["Monitoring", "Sécurité", "Refactoring", "CI/CD", "Cloud"],
+    icon: "🔧",
+  },
+};
+
+export default function ServiceDetailClient({ slug }) {
+  const service = serviceData[slug];
+
+  if (!service) {
+    return (
+      <div className="min-h-screen bg-lion-dark text-white py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl font-bold text-lion-gold mb-4">Service non trouvé</h1>
+          <Link href="/services" className="text-lion-electric hover:text-lion-gold transition">
+            Retour aux services
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-lion-dark text-white py-20 px-6">
+      <div className="max-w-4xl mx-auto">
+        
+        {/* Bouton retour */}
+        <MotionWrapper direction="left" distance={20} duration={0.5}>
+          <Link 
+            href="/services" 
+            className="inline-flex items-center gap-2 text-lion-muted hover:text-lion-gold transition-colors mb-8"
+          >
+            <ArrowLeft size={20} />
+            <span>Retour aux services</span>
+          </Link>
+        </MotionWrapper>
+
+        {/* En-tête */}
+        <MotionWrapper direction="scale" duration={0.8}>
+          <div className="flex items-center gap-4 mb-6">
+            <span className="text-6xl">{service.icon}</span>
+            <h1 className="text-5xl font-bold text-gradient">{service.title}</h1>
+          </div>
+        </MotionWrapper>
+        
+        <MotionWrapper delay={0.2} direction="up">
+          <p className="text-xl text-lion-light mb-6">{service.description}</p>
+          <p className="text-lion-muted mb-10">{service.longDescription}</p>
+        </MotionWrapper>
+
+        {/* Features */}
+        <MotionWrapper delay={0.3} direction="slide-up">
+          <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8 mb-8">
+            <h2 className="text-2xl font-bold text-lion-gold mb-6">Caractéristiques</h2>
+            <ul className="grid md:grid-cols-2 gap-4">
+              {service.features.map((feat, i) => (
+                <MotionWrapper key={i} delay={0.4 + i * 0.05} direction="fade">
+                  <li className="flex items-center gap-3 text-lion-light">
+                    <span className="w-2 h-2 bg-lion-gold rounded-full"></span>
+                    {feat}
+                  </li>
+                </MotionWrapper>
+              ))}
+            </ul>
+          </div>
+        </MotionWrapper>
+
+        {/* Technologies */}
+        <MotionWrapper delay={0.5} direction="slide-up">
+          <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8 mb-10">
+            <h2 className="text-2xl font-bold text-lion-gold mb-6">Technologies utilisées</h2>
+            <div className="flex flex-wrap gap-3">
+              {service.technologies.map((tech, i) => (
+                <MotionWrapper key={i} delay={0.6 + i * 0.05} direction="zoom-out">
+                  <span className="px-4 py-2 bg-lion-gold bg-opacity-10 text-lion-gold rounded-full text-sm border border-lion-gold border-opacity-30">
+                    {tech}
+                  </span>
+                </MotionWrapper>
+              ))}
+            </div>
+          </div>
+        </MotionWrapper>
+
+        {/* CTA */}
+        <MotionWrapper delay={0.7} direction="fade">
+          <div className="text-center">
+            <Link 
+              href="/contact"
+              className="inline-block bg-lion-gold text-lion-dark px-8 py-4 rounded-xl font-semibold 
+                       hover:bg-opacity-90 transition-all duration-300 
+                       shadow-lg shadow-lion-gold shadow-opacity-20"
+            >
+              Discuter de ce service
+            </Link>
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+import ServiceDetailClient from "./ServiceDetailClient";
+
+export async function generateStaticParams() {
+  const services = [
+    { slug: "web-development" },
+    { slug: "mobile-apps" },
+    { slug: "custom-solutions" },
+    { slug: "maintenance" },
+  ];
+
+  return services.map((service) => ({ slug: service.slug }));
+}
+
+export default function Page({ params }) {
+  return <ServiceDetailClient slug={params.slug} />;
+}
+
+import MotionWrapper from "@/app/components/MotionWrapper";
+
+export default function ServiceDetailLoading() {
+  return (
+    <div className="min-h-screen bg-lion-dark py-20 px-6">
+      <div className="max-w-4xl mx-auto">
+        
+        {/* Bouton retour */}
+        <MotionWrapper direction="left" distance={20}>
+          <div className="h-6 w-32 bg-lion-gold bg-opacity-20 rounded-lg mb-8 animate-pulse"></div>
+        </MotionWrapper>
+
+        {/* En-tête */}
+        <MotionWrapper delay={0.2}>
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-16 h-16 bg-lion-gold bg-opacity-20 rounded-2xl animate-pulse"></div>
+            <div className="h-12 w-64 bg-lion-gold bg-opacity-20 rounded-lg animate-pulse"></div>
+          </div>
+        </MotionWrapper>
+        
+        <MotionWrapper delay={0.3}>
+          <div className="space-y-4 mb-8">
+            <div className="h-6 w-3/4 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+            <div className="h-20 w-full bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+          </div>
+        </MotionWrapper>
+
+        {/* Features */}
+        <MotionWrapper delay={0.4}>
+          <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8 mb-8">
+            <div className="h-8 w-48 bg-lion-gold bg-opacity-20 rounded-lg mb-6 animate-pulse"></div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-lion-gold rounded-full"></div>
+                  <div className="h-5 w-40 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </MotionWrapper>
+
+        {/* Technologies */}
+        <MotionWrapper delay={0.5}>
+          <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8 mb-10">
+            <div className="h-8 w-48 bg-lion-gold bg-opacity-20 rounded-lg mb-6 animate-pulse"></div>
+            <div className="flex flex-wrap gap-3">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="h-8 w-24 bg-lion-gold bg-opacity-10 rounded-full animate-pulse"></div>
+              ))}
+            </div>
+          </div>
+        </MotionWrapper>
+
+        {/* CTA */}
+        <MotionWrapper delay={0.6}>
+          <div className="text-center">
+            <div className="h-14 w-56 bg-lion-gold bg-opacity-20 rounded-xl mx-auto animate-pulse"></div>
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import MotionWrapper from "@/app/components/MotionWrapper";
+import { ArrowLeft } from "@phosphor-icons/react";
+
+// Simuler une base de données de projets
+const projectsData = {
+  "ecommerce-luxe": {
+    title: "E‑commerce Luxe",
+    category: "Web",
+    description: "Plateforme e-commerce haut de gamme avec une expérience utilisateur premium et des performances optimisées.",
+    longDescription: "Développement d'une plateforme e-commerce complète pour une marque de luxe. Interface élégante, paiement sécurisé, gestion de stock en temps réel, et dashboard administrateur personnalisé.",
+    image: null,
+    stack: ["Next.js", "Shopify", "TailwindCSS", "Stripe"],
+    features: [
+      "Catalogue produits dynamique",
+      "Panier d'achat en temps réel",
+      "Paiement sécurisé",
+      "Dashboard admin",
+      "SEO optimisé",
+      "Responsive design"
+    ],
+    year: "2025",
+    client: "Luxe Brand",
+  },
+  "app-fitness": {
+    title: "App Fitness",
+    category: "Mobile",
+    description: "Application de suivi fitness avec coaching personnalisé et programmes d'entraînement adaptatifs.",
+    longDescription: "Application mobile cross-platform pour le suivi fitness. Intégration avec Apple Health/Google Fit, programmes personnalisés, suivi des performances, et communauté sociale.",
+    image: null,
+    stack: ["React Native", "Node.js", "MongoDB", "Firebase"],
+    features: [
+      "Suivi des activités",
+      "Programmes personnalisés",
+      "Intégration santé",
+      "Réseau social",
+      "Notifications push",
+      "Mode hors-ligne"
+    ],
+    year: "2025",
+    client: "FitTech Startup",
+  },
+  "erp-industriel": {
+    title: "ERP Industriel",
+    category: "Sur mesure",
+    description: "Système de gestion d'entreprise complet pour l'industrie manufacturière.",
+    longDescription: "Solution ERP sur mesure pour une entreprise industrielle. Gestion des stocks, production, RH, comptabilité, et reporting avancé.",
+    image: null,
+    stack: ["Django", "PostgreSQL", "React", "Docker"],
+    features: [
+      "Gestion de production",
+      "Suivi des stocks",
+      "Module RH",
+      "Comptabilité intégrée",
+      "Reporting avancé",
+      "Multi-sites"
+    ],
+    year: "2024",
+    client: "Industrie Métallurgique",
+  },
+};
+
+export default function ProjectDetail({ params }) {
+  const project = projectsData[params.slug];
+
+  if (!project) {
+    return (
+      <div className="min-h-screen bg-lion-dark text-white py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl font-bold text-lion-gold mb-4">Projet non trouvé</h1>
+          <Link href="/projects" className="text-lion-electric hover:text-lion-gold transition">
+            Retour aux projets
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-lion-dark text-white py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        
+        {/* Bouton retour */}
+        <MotionWrapper direction="left" distance={20} duration={0.5}>
+          <Link 
+            href="/projects" 
+            className="inline-flex items-center gap-2 text-lion-muted hover:text-lion-gold transition-colors mb-8"
+          >
+            <ArrowLeft size={20} />
+            <span>Retour aux projets</span>
+          </Link>
+        </MotionWrapper>
+
+        {/* En-tête */}
+        <div className="grid md:grid-cols-2 gap-12 mb-16">
+          <MotionWrapper direction="scale" duration={0.8}>
+            <div className="aspect-video bg-lion-surface rounded-2xl border border-lion-gold border-opacity-20 flex items-center justify-center">
+              {project.image ? (
+                <Image src={project.image} alt={project.title} fill className="object-cover rounded-2xl" />
+              ) : (
+                <span className="text-8xl text-lion-gold text-opacity-50">
+                  {project.category === "Web" ? "🌐" : project.category === "Mobile" ? "📱" : "⚙️"}
+                </span>
+              )}
+            </div>
+          </MotionWrapper>
+
+          <MotionWrapper direction="right" distance={30} delay={0.2}>
+            <div className="space-y-6">
+              <div>
+                <span className="inline-block px-4 py-2 bg-lion-gold text-lion-dark rounded-full text-sm font-bold mb-4">
+                  {project.category}
+                </span>
+                <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-4">
+                  {project.title}
+                </h1>
+              </div>
+              
+              <p className="text-xl text-lion-light leading-relaxed">
+                {project.description}
+              </p>
+              
+              <div className="flex gap-6 pt-4">
+                <div>
+                  <p className="text-lion-muted text-sm">Client</p>
+                  <p className="text-lion-gold font-semibold">{project.client}</p>
+                </div>
+                <div>
+                  <p className="text-lion-muted text-sm">Année</p>
+                  <p className="text-lion-gold font-semibold">{project.year}</p>
+                </div>
+              </div>
+            </div>
+          </MotionWrapper>
+        </div>
+
+        {/* Description longue */}
+        <MotionWrapper delay={0.3} direction="slide-up">
+          <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8 mb-12">
+            <h2 className="text-2xl font-bold text-lion-gold mb-4">À propos du projet</h2>
+            <p className="text-lion-light leading-relaxed">
+              {project.longDescription}
+            </p>
+          </div>
+        </MotionWrapper>
+
+        {/* Stack et features */}
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <MotionWrapper delay={0.4} direction="slide-up">
+            <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8">
+              <h2 className="text-2xl font-bold text-lion-gold mb-4">Technologies</h2>
+              <div className="flex flex-wrap gap-3">
+                {project.stack.map((tech, i) => (
+                  <span 
+                    key={i}
+                    className="px-4 py-2 bg-lion-gold bg-opacity-10 text-lion-gold rounded-full text-sm border border-lion-gold border-opacity-30"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </MotionWrapper>
+
+          <MotionWrapper delay={0.5} direction="slide-up">
+            <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8">
+              <h2 className="text-2xl font-bold text-lion-gold mb-4">Fonctionnalités</h2>
+              <ul className="space-y-2">
+                {project.features.map((feature, i) => (
+                  <li key={i} className="flex items-center gap-2 text-lion-light">
+                    <span className="text-lion-gold">✓</span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </MotionWrapper>
+        </div>
+
+        {/* CTA */}
+        <MotionWrapper delay={0.6} direction="fade">
+          <div className="text-center">
+            <Link
+              href="/contact"
+              className="inline-block bg-lion-gold text-lion-dark px-8 py-4 rounded-xl font-semibold 
+                       hover:bg-opacity-90 transition-all duration-300 
+                       shadow-lg shadow-lion-gold shadow-opacity-20"
+            >
+              Discuter d'un projet similaire
+            </Link>
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+import MotionWrapper from "@/app/components/MotionWrapper";
+
+export default function ProjectDetailLoading() {
+  return (
+    <div className="min-h-screen bg-lion-dark py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        
+        {/* Bouton retour */}
+        <MotionWrapper direction="left" distance={20}>
+          <div className="h-6 w-32 bg-lion-gold bg-opacity-20 rounded-lg mb-8 animate-pulse"></div>
+        </MotionWrapper>
+
+        {/* En-tête */}
+        <div className="grid md:grid-cols-2 gap-12 mb-16">
+          <MotionWrapper delay={0.2}>
+            <div className="aspect-video bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl animate-pulse"></div>
+          </MotionWrapper>
+
+          <MotionWrapper delay={0.3}>
+            <div className="space-y-6">
+              <div className="h-8 w-32 bg-lion-gold bg-opacity-20 rounded-full mb-4 animate-pulse"></div>
+              <div className="h-12 w-3/4 bg-lion-gold bg-opacity-20 rounded-lg animate-pulse"></div>
+              <div className="space-y-3">
+                <div className="h-5 w-full bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                <div className="h-5 w-5/6 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                <div className="h-5 w-4/6 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+              </div>
+              <div className="flex gap-6 pt-4">
+                <div className="space-y-2">
+                  <div className="h-4 w-16 bg-lion-gold bg-opacity-20 rounded-lg animate-pulse"></div>
+                  <div className="h-6 w-24 bg-lion-gold bg-opacity-20 rounded-lg animate-pulse"></div>
+                </div>
+                <div className="space-y-2">
+                  <div className="h-4 w-16 bg-lion-gold bg-opacity-20 rounded-lg animate-pulse"></div>
+                  <div className="h-6 w-24 bg-lion-gold bg-opacity-20 rounded-lg animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+          </MotionWrapper>
+        </div>
+
+        {/* Description longue */}
+        <MotionWrapper delay={0.4}>
+          <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8 mb-12">
+            <div className="h-8 w-48 bg-lion-gold bg-opacity-20 rounded-lg mb-4 animate-pulse"></div>
+            <div className="space-y-3">
+              <div className="h-5 w-full bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+              <div className="h-5 w-full bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+              <div className="h-5 w-3/4 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+            </div>
+          </div>
+        </MotionWrapper>
+
+        {/* Stack et features */}
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <MotionWrapper delay={0.5}>
+            <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8">
+              <div className="h-8 w-40 bg-lion-gold bg-opacity-20 rounded-lg mb-4 animate-pulse"></div>
+              <div className="flex flex-wrap gap-3">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="h-8 w-20 bg-lion-gold bg-opacity-10 rounded-full animate-pulse"></div>
+                ))}
+              </div>
+            </div>
+          </MotionWrapper>
+
+          <MotionWrapper delay={0.6}>
+            <div className="bg-lion-surface border border-lion-gold border-opacity-20 rounded-2xl p-8">
+              <div className="h-8 w-40 bg-lion-gold bg-opacity-20 rounded-lg mb-4 animate-pulse"></div>
+              <div className="space-y-3">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-lion-gold rounded-full"></div>
+                    <div className="h-5 w-40 bg-lion-gold bg-opacity-10 rounded-lg animate-pulse"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </MotionWrapper>
+        </div>
+
+        {/* CTA */}
+        <MotionWrapper delay={0.7}>
+          <div className="text-center">
+            <div className="h-14 w-64 bg-lion-gold bg-opacity-20 rounded-xl mx-auto animate-pulse"></div>
+          </div>
+        </MotionWrapper>
+      </div>
+    </div>
+  );
+}
+
+import Link from "next/link";
+import Image from "next/image";
+
+const BlogCard = ({ title, excerpt, date, image, slug, category, readTime }) => {
+  return (
+    <div className="group bg-lion-surface border border-lion-gold border-opacity-20 rounded-xl overflow-hidden hover:border-lion-gold hover:border-opacity-60 hover:shadow-lg hover:shadow-lion-gold hover:shadow-opacity-10 transition-all duration-300">
+      <div className="relative h-48 overflow-hidden">
+        {image ? (
+          <Image 
+            src={image} 
+            alt={title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="w-full h-full bg-lion-dark flex items-center justify-center">
+            <span className="text-5xl text-lion-gold text-opacity-30">📰</span>
+          </div>
+        )}
+        
+        {/* Badge catégorie */}
+        <div className="absolute top-4 left-4">
+          <span className="px-3 py-1 bg-lion-gold text-lion-dark rounded-full text-xs font-bold">
+            {category}
+          </span>
+        </div>
+        
+        {/* Temps de lecture */}
+        <div className="absolute top-4 right-4">
+          <span className="px-3 py-1 bg-lion-dark bg-opacity-80 text-lion-light rounded-full text-xs border border-lion-gold border-opacity-30">
+            {readTime}
+          </span>
+        </div>
+      </div>
+      
+      <div className="p-6">
+        <div className="text-lion-gold text-sm mb-2">{date}</div>
+        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-lion-gold transition-colors line-clamp-2">
+          {title}
+        </h3>
+        <p className="text-lion-light text-opacity-70 mb-4 line-clamp-3">{excerpt}</p>
+        <Link 
+          href={`/blog/${slug}`}
+          className="inline-flex items-center text-lion-electric hover:text-lion-gold transition-colors group/link"
+        >
+          <span>Lire l'article</span>
+          <svg className="w-4 h-4 ml-2 group-hover/link:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default BlogCard;
+
+"use client";
+
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import emailjs from "emailjs-com";
+import { motion, AnimatePresence } from "framer-motion";
+
+export default function ContactForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+  
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    
+    try {
+      const result = await emailjs.send(
+        'service_kc4bqbd',
+        'template_x05prnd',
+        {
+          from_name: data.name,
+          from_email: data.email,
+          company: data.company,
+          message: data.message,
+          to_name: 'LionForge Team',
+        },
+        'ps1TPw128vEGRf9t5'
+      );
+      
+      if (result.status === 200) {
+        setSubmitStatus('success');
+        reset();
+        setTimeout(() => setSubmitStatus(null), 5000);
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus(null), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-2xl mx-auto">
+      {/* Message de statut */}
+      <AnimatePresence>
+        {submitStatus && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className={`mb-8 p-4 rounded-lg text-sm ${
+              submitStatus === 'success' 
+                ? 'bg-green-500/10 border border-green-500/20 text-green-400'
+                : 'bg-red-500/10 border border-red-500/20 text-red-400'
+            }`}
+          >
+            {submitStatus === 'success' 
+              ? '✓ Message envoyé avec succès'
+              : '✗ Erreur - veuillez réessayer'}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Nom */}
+      <div className="mb-6">
+        <label className="block text-lion-gold text-sm font-medium mb-2">
+          Nom complet <span className="text-red-400">*</span>
+        </label>
+        <input
+          {...register('name', { required: 'Le nom est requis' })}
+          className="w-full px-4 py-3 bg-lion-surface border border-lion-gold/20 rounded-lg focus:border-lion-gold focus:outline-none transition text-white placeholder-lion-muted/50"
+          placeholder="Jean Dupont"
+        />
+        {errors.name && (
+          <p className="text-red-400 text-sm mt-1">{errors.name.message}</p>
+        )}
+      </div>
+
+      {/* Email */}
+      <div className="mb-6">
+        <label className="block text-lion-gold text-sm font-medium mb-2">
+          Email <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="email"
+          {...register('email', { 
+            required: 'L\'email est requis',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Email invalide'
+            }
+          })}
+          className="w-full px-4 py-3 bg-lion-surface border border-lion-gold/20 rounded-lg focus:border-lion-gold focus:outline-none transition text-white placeholder-lion-muted/50"
+          placeholder="jean@exemple.com"
+        />
+        {errors.email && (
+          <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>
+        )}
+      </div>
+
+      {/* Entreprise (optionnel) */}
+      <div className="mb-6">
+        <label className="block text-lion-gold text-sm font-medium mb-2">
+          Entreprise
+        </label>
+        <input
+          {...register('company')}
+          className="w-full px-4 py-3 bg-lion-surface border border-lion-gold/20 rounded-lg focus:border-lion-gold focus:outline-none transition text-white placeholder-lion-muted/50"
+          placeholder="Votre entreprise (optionnel)"
+        />
+      </div>
+
+      {/* Message */}
+      <div className="mb-8">
+        <label className="block text-lion-gold text-sm font-medium mb-2">
+          Message <span className="text-red-400">*</span>
+        </label>
+        <textarea
+          rows="5"
+          {...register('message', { 
+            required: 'Le message est requis',
+            minLength: {
+              value: 10,
+              message: 'Le message doit faire au moins 10 caractères'
+            }
+          })}
+          className="w-full px-4 py-3 bg-lion-surface border border-lion-gold/20 rounded-lg focus:border-lion-gold focus:outline-none transition text-white placeholder-lion-muted/50 resize-none"
+          placeholder="Décrivez votre projet..."
+        />
+        {errors.message && (
+          <p className="text-red-400 text-sm mt-1">{errors.message.message}</p>
+        )}
+      </div>
+
+      <motion.button
+        type="submit"
+        disabled={isSubmitting}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        className="w-full bg-lion-gold text-lion-dark py-4 rounded-lg font-semibold 
+                  hover:bg-opacity-90 transition-all duration-300 
+                  shadow-lg shadow-lion-gold/20 disabled:opacity-50"
+      >
+        {isSubmitting ? (
+          <span className="flex items-center justify-center gap-2">
+            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+            </svg>
+            Envoi...
+          </span>
+        ) : (
+          'Envoyer'
+        )}
+      </motion.button>
+
+      {/* Mention légale */}
+      <p className="text-xs text-center text-lion-muted/50 mt-6">
+        En soumettant ce formulaire, vous acceptez notre politique de confidentialité
+      </p>
+    </form>
+  );
+}
+
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { LinkedinLogo, TwitterLogo, GithubLogo } from "@phosphor-icons/react";
+
+const Footer = () => {
+  return (
+    <footer className="bg-lion-dark border-t border-lion-gold border-opacity-20 py-12 px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          {/* Logo et description */}
+          <div className="col-span-1">
+            <Image src="/logo.svg" alt="LionForge" width={50} height={50} className="mb-4" />
+            <p className="text-lion-light text-opacity-70 text-sm">
+              Forgez votre succès numérique avec des solutions technologiques sur mesure.
+            </p>
+          </div>
+
+          {/* Liens rapides */}
+          <div>
+            <h4 className="text-lion-gold font-semibold mb-4">Liens rapides</h4>
+            <ul className="space-y-2">
+              <li><Link href="/about" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">À propos</Link></li>
+              <li><Link href="/services" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">Services</Link></li>
+              <li><Link href="/projects" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">Projets</Link></li>
+              <li><Link href="/contact" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">Contact</Link></li>
+            </ul>
+          </div>
+
+          {/* Légal */}
+          <div>
+            <h4 className="text-lion-gold font-semibold mb-4">Légal</h4>
+            <ul className="space-y-2">
+              <li><Link href="/mentions-legales" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">Mentions légales</Link></li>
+              <li><Link href="/politique-confidentialite" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">Politique de confidentialité</Link></li>
+            </ul>
+          </div>
+
+          {/* Réseaux sociaux */}
+          <div>
+            <h4 className="text-lion-gold font-semibold mb-4">Suivez-nous</h4>
+            <div className="flex space-x-4">
+              <a href="#" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">
+                <LinkedinLogo size={24} />
+              </a>
+              <a href="#" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">
+                <TwitterLogo size={24} />
+              </a>
+              <a href="#" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">
+                <GithubLogo size={24} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="border-t border-lion-gold border-opacity-20 pt-8 text-center">
+          <p className="text-lion-light text-opacity-50 text-sm">
+            © {new Date().getFullYear()} LionForge. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
+
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Code, DeviceMobile, Lightning } from "@phosphor-icons/react";
+
+const Hero = () => {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Fond avec gradient subtil */}
+      <div className="absolute inset-0 bg-gradient-to-br from-lion-dark via-lion-dark to-lion-electric bg-opacity-20"></div>
+      
+      {/* Particules décoratives */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-lion-gold bg-opacity-30 rounded-full animate-float"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${5 + Math.random() * 10}s`,
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="relative z-10 max-w-4xl text-center px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            Forgez votre succès numérique avec{" "}
+            <span className="text-gradient">LionForge</span>
+          </h1>
+        </motion.div>
+        
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-xl text-lion-light mb-10"
+        >
+          Développement web & mobile, solutions sur mesure et innovation technologique.
+        </motion.p>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
+          <Link
+            href="/contact"
+            className="group relative bg-lion-gold text-lion-dark px-8 py-3 rounded-lg font-semibold 
+                     hover:bg-opacity-90 transition-all duration-300 
+                     shadow-lg shadow-lion-gold shadow-opacity-20 hover:shadow-xl hover:shadow-lion-gold hover:shadow-opacity-30
+                     transform hover:-translate-y-1 overflow-hidden"
+          >
+            <span className="relative z-10">Demander un devis</span>
+            <div className="absolute inset-0 bg-white rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+          </Link>
+          
+          <Link
+            href="/projects"
+            className="group relative border-2 border-lion-gold text-lion-gold px-8 py-3 rounded-lg font-semibold 
+                     hover:bg-lion-gold hover:bg-opacity-10 transition-all duration-300
+                     transform hover:-translate-y-1 overflow-hidden"
+          >
+            <span className="relative z-10">Voir nos projets</span>
+            <div className="absolute inset-0 bg-lion-gold bg-opacity-5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+          </Link>
+        </motion.div>
+
+        {/* Icônes décoratives */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="flex justify-center gap-6 mt-16 text-lion-gold"
+        >
+          <Code size={32} weight="duotone" className="opacity-50 hover:opacity-100 transition-opacity" />
+          <DeviceMobile size={32} weight="duotone" className="opacity-50 hover:opacity-100 transition-opacity" />
+          <Lightning size={32} weight="duotone" className="opacity-50 hover:opacity-100 transition-opacity" />
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
+
+"use client";
+
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+const MotionWrapper = ({ 
+  children, 
+  delay = 0, 
+  direction = "up", 
+  duration = 0.6,
+  distance = 50,
+  className = "",
+  once = true,
+  threshold = 0.1,
+  ...props 
+}) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const getInitialPosition = () => {
+    switch(direction) {
+      case "up": return { y: distance };
+      case "down": return { y: -distance };
+      case "left": return { x: distance };
+      case "right": return { x: -distance };
+      default: return { y: distance };
+    }
+  };
+
+  const variants = {
+    hidden: { opacity: 0, ...getInitialPosition() },
+    visible: { opacity: 1, y: 0, x: 0, transition: { duration, delay } },
+  };
+
+  if (!isMounted) {
+    return <div className={className}>{children}</div>;
+  }
+
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once, threshold }}
+      variants={variants}
+      className={className}
+      {...props}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+export default MotionWrapper;
+
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { List, X } from "@phosphor-icons/react";
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const menuItems = [
+    { href: "/about", label: "À propos" },
+    { href: "/services", label: "Services" },
+    { href: "/projects", label: "Projets" },
+    { href: "/blog", label: "Blog" },
+    { href: "/contact", label: "Contact" },
+  ];
+
+  return (
+    <>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        scrolled ? "bg-lion-dark bg-opacity-95 backdrop-blur-md py-3" : "bg-transparent py-5"
+      }`}>
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+          <Link href="/" className="relative z-50">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center"
+            >
+              <Image 
+                src="/logo1.svg" 
+                alt="LionForge" 
+                width={60} 
+                height={60}
+                className="w-14 h-14 md:w-16 md:h-16"
+                priority
+              />
+            </motion.div>
+          </Link>
+
+          <div className="hidden md:flex items-center space-x-8">
+            {menuItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-white hover:text-lion-gold transition-colors duration-300 text-lg font-medium"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden relative z-50 w-12 h-12 flex items-center justify-center bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-colors"
+            aria-label="Menu"
+          >
+            {isOpen ? (
+              <X size={28} className="text-lion-gold" />
+            ) : (
+              <List size={28} className="text-lion-gold" />
+            )}
+          </button>
+        </div>
+      </nav>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "tween", duration: 0.3 }}
+            className="fixed inset-0 bg-lion-dark z-40 md:hidden"
+          >
+            <div className="flex flex-col items-center justify-center h-full space-y-8">
+              {menuItems.map((item, index) => (
+                <motion.div
+                  key={item.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className="text-2xl font-bold text-white hover:text-lion-gold transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
+export default Navbar;
+
+"use client";
+
+import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
+
+export default function PageTransition({ children }) {
+  const pathname = usePathname();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={pathname}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.3 }}
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+"use client";
+
+import { useCallback } from "react";
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
+
+const ParticlesBackground = () => {
+  const particlesInit = useCallback(async (engine) => {
+    await loadSlim(engine);
+  }, []);
+
+  return (
+    <Particles
+      id="tsparticles"
+      init={particlesInit}
+      options={{
+        background: { color: { value: "transparent" } },
+        fpsLimit: 60,
+        particles: {
+          color: { value: "#FBBF24" },
+          links: { color: "#FBBF24", distance: 150, enable: true, opacity: 0.1, width: 1 },
+          move: { enable: true, speed: 1 },
+          number: { density: { enable: true, area: 800 }, value: 40 },
+          opacity: { value: 0.2 },
+          size: { value: { min: 1, max: 3 } },
+        },
+      }}
+      className="absolute inset-0 -z-10"
+    />
+  );
+};
+
+export default ParticlesBackground;
+
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+const ProjectCard = ({ title, category, image, slug, stack }) => {
+  return (
+    <motion.div
+      whileHover={{ y: -5 }}
+      className="group bg-lion-surface border border-lion-gold border-opacity-20 rounded-xl overflow-hidden hover:border-lion-gold hover:border-opacity-60 hover:shadow-xl hover:shadow-lion-gold hover:shadow-opacity-10 transition-all duration-300"
+    >
+      <div className="relative h-56 overflow-hidden bg-lion-dark">
+        {image ? (
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <span className="text-6xl text-lion-gold text-opacity-50 group-hover:text-opacity-100 transition-all">
+              {category === "Web" ? "🌐" : category === "Mobile" ? "📱" : "⚙️"}
+            </span>
+          </div>
+        )}
+        
+        {/* Badge catégorie */}
+        <div className="absolute top-4 left-4 z-10">
+          <span className="px-3 py-1 bg-lion-gold text-lion-dark rounded-full text-sm font-bold">
+            {category}
+          </span>
+        </div>
+        
+        {/* Stack */}
+        <div className="absolute top-4 right-4 z-10">
+          <span className="px-3 py-1 bg-lion-dark bg-opacity-80 text-lion-light rounded-full text-xs border border-lion-gold border-opacity-30">
+            {stack}
+          </span>
+        </div>
+      </div>
+
+      <div className="p-6">
+        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-lion-gold transition-colors">
+          {title}
+        </h3>
+        
+        <p className="text-lion-light text-opacity-70 mb-4 line-clamp-2">
+          Projet de {category} utilisant {stack}
+        </p>
+        
+        <Link 
+          href={`/projects/${slug}`}
+          className="inline-flex items-center text-lion-electric hover:text-lion-gold transition-colors group/link"
+        >
+          <span>Voir l'étude de cas</span>
+          <svg className="w-4 h-4 ml-2 group-hover/link:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
+      </div>
+    </motion.div>
+  );
+};
+
+export default ProjectCard;
+
+"use client";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCards, Autoplay, Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-cards";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+const projects = [
+  {
+    title: "E‑commerce Luxe",
+    category: "Web",
+    image: null,
+    slug: "ecommerce-luxe",
+    stack: "Next.js, Shopify",
+    description: "Plateforme e-commerce haut de gamme.",
+  },
+  {
+    title: "App Fitness",
+    category: "Mobile",
+    image: null,
+    slug: "app-fitness",
+    stack: "React Native",
+    description: "Application de suivi fitness.",
+  },
+  {
+    title: "ERP Industriel",
+    category: "Sur mesure",
+    image: null,
+    slug: "erp-industriel",
+    stack: "Django, PostgreSQL",
+    description: "Système de gestion d'entreprise.",
+  },
+];
+
+export default function ProjectCarousel() {
+  return (
+    <div className="relative py-12 px-4">
+      <Swiper
+        effect="cards"
+        grabCursor={true}
+        modules={[EffectCards, Autoplay, Pagination, Navigation]}
+        className="w-full max-w-md mx-auto h-[450px]"
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        pagination={{ clickable: true }}
+        navigation={true}
+        loop={true}
+      >
+        {projects.map((project) => (
+          <SwiperSlide key={project.slug}>
+            <div className="bg-lion-surface border border-lion-gold border-opacity-30 rounded-3xl overflow-hidden h-full">
+              <div className="relative h-48 bg-lion-dark">
+                {project.image ? (
+                  <Image src={project.image} alt={project.title} fill className="object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <span className="text-6xl text-lion-gold text-opacity-50">
+                      {project.category === "Web" ? "🌐" : "📱"}
+                    </span>
+                  </div>
+                )}
+                
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 bg-lion-gold text-lion-dark rounded-full text-sm font-bold">
+                    {project.category}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
+                <p className="text-lion-light text-opacity-70 text-sm mb-4">{project.description}</p>
+                <span className="text-xs text-lion-gold">{project.stack}</span>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+}
+
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+
+const ScrollAnimation = ({ children, type = "fade", className = "" }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [50, 0, -50]);
+
+  const getAnimation = () => {
+    switch(type) {
+      case "fade": return { opacity };
+      case "scale": return { opacity, scale };
+      case "slide": return { opacity, y };
+      default: return { opacity };
+    }
+  };
+
+  return (
+    <motion.div ref={ref} style={getAnimation()} className={className}>
+      {children}
+    </motion.div>
+  );
+};
+
+export default ScrollAnimation;
+
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Fuse from "fuse.js";
+import Link from "next/link";
+import { MagnifyingGlass } from "@phosphor-icons/react";
+
+const SearchBar = ({ posts }) => {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const fuse = new Fuse(posts, {
+    keys: ['title', 'excerpt', 'category'],
+    threshold: 0.3,
+  });
+
+  useEffect(() => {
+    if (query.length > 2) {
+      const searchResults = fuse.search(query);
+      setResults(searchResults.map(r => r.item));
+      setIsOpen(true);
+    } else {
+      setResults([]);
+      setIsOpen(false);
+    }
+  }, [query]);
+
+  return (
+    <div className="relative max-w-2xl mx-auto mb-12">
+      <div className="relative group">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Rechercher un article..."
+          className="w-full px-6 py-4 bg-lion-surface border border-lion-gold border-opacity-30 rounded-2xl 
+                     focus:border-lion-gold focus:outline-none transition-all duration-300
+                     text-white placeholder-lion-light placeholder-opacity-50
+                     group-hover:border-opacity-60"
+        />
+        
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+          <MagnifyingGlass size={24} className="text-lion-gold text-opacity-50 group-hover:text-opacity-100 transition-colors" />
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {isOpen && results.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="absolute top-full left-0 right-0 mt-2 bg-lion-surface border border-lion-gold border-opacity-30 rounded-2xl overflow-hidden z-50 shadow-2xl"
+          >
+            {results.map((post, index) => (
+              <motion.div
+                key={post.slug}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.05 }}
+              >
+                <Link href={`/blog/${post.slug}`}>
+                  <div className="p-4 hover:bg-lion-gold hover:bg-opacity-10 transition-colors cursor-pointer border-b border-lion-gold border-opacity-20 last:border-b-0">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-lion-gold mb-1">
+                          {post.title}
+                        </h4>
+                        <p className="text-sm text-lion-light text-opacity-70 line-clamp-1">
+                          {post.excerpt}
+                        </p>
+                        <div className="flex gap-2 mt-2">
+                          <span className="text-xs px-2 py-1 bg-lion-gold bg-opacity-20 rounded-full text-lion-gold">
+                            {post.category}
+                          </span>
+                          <span className="text-xs text-lion-light text-opacity-50">
+                            {post.date}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default SearchBar;
+
+import Link from "next/link";
+
+const ServiceCard = ({ title, description, slug, icon }) => {
+  return (
+    <div className="group bg-lion-surface border border-lion-gold border-opacity-20 rounded-xl p-6 hover:border-lion-gold hover:border-opacity-60 hover:shadow-lg hover:shadow-lion-gold hover:shadow-opacity-10 transition-all duration-300">
+      <div className="text-4xl mb-4 text-lion-gold group-hover:text-lion-electric transition-colors">
+        {icon}
+      </div>
+      <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-lion-gold transition-colors">
+        {title}
+      </h3>
+      <p className="text-lion-light text-opacity-70 mb-4">
+        {description}
+      </p>
+      <Link 
+        href={`/services/${slug}`} 
+        className="inline-flex items-center text-lion-electric hover:text-lion-gold transition-colors group/link"
+      >
+        <span>En savoir plus</span>
+        <svg className="w-4 h-4 ml-2 group-hover/link:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </Link>
+    </div>
+  );
+};
+
+export default ServiceCard;
+
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Sun, Moon } from "@phosphor-icons/react";
+
+const ThemeToggle = () => {
+  const [darkMode, setDarkMode] = useState(true);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
+
+  return (
+    <motion.button
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      onClick={() => setDarkMode(!darkMode)}
+      className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-lion-gold rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow"
+      aria-label="Toggle theme"
+    >
+      {darkMode ? (
+        <Sun size={24} className="text-lion-dark" />
+      ) : (
+        <Moon size={24} className="text-lion-dark" />
+      )}
+    </motion.button>
+  );
+};
+
+export default ThemeToggle;
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        lion: {
+          // TES COULEURS ORIGINALES
+          dark: "#0A0F1E",        // Noir profond - ta force
+          gold: "#FBBF24",         // TON OR - ta signature 🔥
+          electric: "#3B82F6",     // TON BLEU - ta touche tech
+          light: "#F3F4F6",        // Gris clair - élégant
+          surface: "#111827",      // Surface sombre pour cartes
+          muted: "#94A3B8",        // Gris bleuté pour textes secondaires
+        },
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'slide-up': 'slideUp 0.6s ease-out',
+        'float': 'float 6s ease-in-out infinite',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        progress: {
+          '0%': { width: '0%', marginLeft: '0%' },
+          '50%': { width: '100%', marginLeft: '0%' },
+          '100%': { width: '0%', marginLeft: '100%' },
+        },
+      },
+    },
+  },
+  plugins: [],
+}
+
+

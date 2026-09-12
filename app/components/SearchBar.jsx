@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Fuse from "fuse.js";
 import Link from "next/link";
@@ -11,10 +11,13 @@ const SearchBar = ({ posts }) => {
   const [results, setResults] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  const fuse = new Fuse(posts, {
-    keys: ['title', 'excerpt', 'category'],
-    threshold: 0.3,
-  });
+  const fuse = useMemo(
+    () => new Fuse(posts, {
+      keys: ["title", "excerpt", "category"],
+      threshold: 0.3,
+    }),
+    [posts]
+  );
 
   useEffect(() => {
     if (query.length > 2) {
@@ -25,7 +28,7 @@ const SearchBar = ({ posts }) => {
       setResults([]);
       setIsOpen(false);
     }
-  }, [query]);
+  }, [fuse, query]);
 
   return (
     <div className="relative max-w-2xl mx-auto mb-12">

@@ -4,6 +4,7 @@ import Hero from "@/app/components/Hero";
 import ServiceCard from "@/app/components/ServiceCard";
 import ProjectCard from "@/app/components/ProjectCard";
 import MotionWrapper from "@/app/components/MotionWrapper";
+import { projects, services } from "@/app/data/content";
 import { 
   Rocket, 
   Lightning, 
@@ -17,39 +18,23 @@ import {
   ArrowRight
 } from "@phosphor-icons/react";
 import Link from "next/link";
-import Image from "next/image";
 
-const services = [
-  {
-    title: "Développement Web",
-    description: "Sites vitrines, plateformes e‑commerce, applications SaaS.",
-    slug: "web-development",
-    icon: <Code size={32} weight="duotone" className="text-lion-gold" />,
-  },
-  {
-    title: "Applications Mobiles",
-    description: "iOS, Android, cross‑platform (React Native, Flutter).",
-    slug: "mobile-apps",
-    icon: <DeviceMobile size={32} weight="duotone" className="text-lion-gold" />,
-  },
-  {
-    title: "Solutions Sur Mesure",
-    description: "Systèmes métiers, automatisation, intégrations API.",
-    slug: "custom-solutions",
-    icon: <Gear size={32} weight="duotone" className="text-lion-gold" />,
-  },
-  {
-    title: "Maintenance & Support",
-    description: "Optimisation, sécurité, mises à jour continues.",
-    slug: "maintenance",
-    icon: <Wrench size={32} weight="duotone" className="text-lion-gold" />,
-  },
-];
+const serviceIcons = {
+  code: <Code size={32} weight="duotone" className="text-lion-gold" />,
+  mobile: <DeviceMobile size={32} weight="duotone" className="text-lion-gold" />,
+  gear: <Gear size={32} weight="duotone" className="text-lion-gold" />,
+  wrench: <Wrench size={32} weight="duotone" className="text-lion-gold" />,
+};
 
-const projects = [
-  { title: "E‑commerce Luxe", category: "Web", image: null, slug: "ecommerce-luxe", stack: "Next.js, Shopify" },
-  { title: "App Fitness", category: "Mobile", image: null, slug: "app-fitness", stack: "React Native" },
-  { title: "ERP Industriel", category: "Sur mesure", image: null, slug: "erp-industriel", stack: "Django, PostgreSQL" },
+const ctaParticles = [
+  { top: "15%", left: "12%", delay: "0s", duration: "9s" },
+  { top: "28%", left: "76%", delay: "1.1s", duration: "11s" },
+  { top: "43%", left: "24%", delay: "2.2s", duration: "10s" },
+  { top: "59%", left: "88%", delay: "0.7s", duration: "12s" },
+  { top: "72%", left: "36%", delay: "3.1s", duration: "8s" },
+  { top: "84%", left: "67%", delay: "1.8s", duration: "13s" },
+  { top: "21%", left: "48%", delay: "3.8s", duration: "9s" },
+  { top: "66%", left: "8%", delay: "2.6s", duration: "10s" },
 ];
 
 export default function Home() {
@@ -58,8 +43,8 @@ export default function Home() {
       <Hero />
 
       {/* Présentation rapide */}
-      <section className="relative py-20 px-6 bg-gradient-to-b from-lion-dark via-lion-dark to-black overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-lion-gold to-transparent opacity-50"></div>
+      <section className="relative py-20 px-6 bg-linear-to-b from-lion-dark via-lion-dark to-black overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-lion-gold to-transparent opacity-50"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-lion-gold opacity-5 rounded-full blur-3xl"></div>
         <div className="absolute top-20 left-20 w-64 h-64 bg-lion-electric opacity-5 rounded-full blur-3xl"></div>
         
@@ -121,8 +106,8 @@ export default function Home() {
       </section>
 
       {/* Services */}
-      <section className="relative py-20 px-6 bg-gradient-to-b from-black to-lion-dark overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
+      <section className="relative py-20 px-6 bg-linear-to-b from-black to-lion-dark overflow-hidden">
+        <div className="absolute inset-0 opacity-5 [background-image:linear-gradient(rgba(251,191,36,0.7)_1px,transparent_1px),linear-gradient(90deg,rgba(251,191,36,0.7)_1px,transparent_1px)] [background-size:48px_48px]"></div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           <MotionWrapper direction="fade" duration={0.8}>
@@ -144,7 +129,7 @@ export default function Home() {
                 duration={0.5}
                 className="h-full"
               >
-                <ServiceCard {...service} />
+                <ServiceCard {...service} icon={serviceIcons[service.icon]} />
               </MotionWrapper>
             ))}
           </div>
@@ -152,7 +137,7 @@ export default function Home() {
       </section>
 
       {/* Projets récents */}
-      <section className="relative py-20 px-6 bg-gradient-to-b from-lion-dark to-black overflow-hidden">
+      <section className="relative py-20 px-6 bg-linear-to-b from-lion-dark to-black overflow-hidden">
         <div className="absolute top-0 left-0 w-64 h-64 bg-lion-gold opacity-5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-lion-electric opacity-5 rounded-full blur-3xl"></div>
         
@@ -167,7 +152,7 @@ export default function Home() {
           </MotionWrapper>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, i) => (
+            {projects.slice(0, 3).map((project, i) => (
               <MotionWrapper 
                 key={project.slug} 
                 delay={i * 0.15}
@@ -199,7 +184,7 @@ export default function Home() {
       </section>
 
       {/* Pourquoi nous choisir */}
-      <section className="relative py-20 px-6 bg-gradient-to-b from-black to-lion-dark overflow-hidden">
+      <section className="relative py-20 px-6 bg-linear-to-b from-black to-lion-dark overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-lion-gold opacity-5 rounded-full blur-3xl"></div>
         </div>
@@ -261,19 +246,19 @@ export default function Home() {
 
       {/* CTA final */}
       <section className="relative py-32 px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-lion-dark via-lion-dark to-lion-electric opacity-20"></div>
+        <div className="absolute inset-0 bg-linear-to-br from-lion-dark via-lion-dark to-lion-electric opacity-20"></div>
         
         {/* Particules */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(15)].map((_, i) => (
+          {ctaParticles.map((particle, i) => (
             <div
               key={i}
               className="absolute w-1 h-1 bg-lion-gold opacity-30 rounded-full animate-float"
               style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${5 + Math.random() * 10}s`,
+                top: particle.top,
+                left: particle.left,
+                animationDelay: particle.delay,
+                animationDuration: particle.duration,
               }}
             />
           ))}

@@ -1,75 +1,12 @@
 "use client";
 
 import MotionWrapper from "@/app/components/MotionWrapper";
+import { services } from "@/app/data/content";
 import Link from "next/link";
 import { ArrowLeft } from "@phosphor-icons/react";
-import { use } from "react";
-
-const serviceData = {
-  "web-development": {
-    title: "Développement Web",
-    description: "Nous créons des sites web et applications web sur mesure, performants et sécurisés.",
-    longDescription: "De la simple vitrine à la plateforme SaaS complexe, nous développons des solutions web robustes et évolutives qui répondent parfaitement à vos besoins métier.",
-    features: [
-      "Sites vitrines responsive",
-      "Plateformes e‑commerce",
-      "Applications SaaS",
-      "Progressive Web Apps (PWA)",
-      "APIs RESTful",
-      "CMS sur mesure"
-    ],
-    technologies: ["React", "Next.js", "Node.js", "Laravel", "Symfony", "TailwindCSS"],
-    icon: "🌐",
-  },
-  "mobile-apps": {
-    title: "Applications Mobiles",
-    description: "Développement d'applications mobiles natives et cross‑platform pour iOS et Android.",
-    longDescription: "Nous concevons des applications mobiles intuitives et performantes, que ce soit en natif pour une expérience optimale ou en cross-platform pour maximiser votre reach.",
-    features: [
-      "Applications iOS (Swift)",
-      "Applications Android (Kotlin)",
-      "Cross‑platform (React Native, Flutter)",
-      "Intégration API",
-      "Notifications push",
-      "Mode hors-ligne"
-    ],
-    technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase"],
-    icon: "📱",
-  },
-  "custom-solutions": {
-    title: "Solutions Sur Mesure",
-    description: "Des logiciels adaptés à vos processus métier pour gagner en efficacité.",
-    longDescription: "Nous développons des solutions logicielles entièrement personnalisées qui s'adaptent parfaitement à vos processus d'entreprise et vous permettent de gagner en productivité.",
-    features: [
-      "Systèmes de gestion (ERP, CRM)",
-      "Automatisation de tâches",
-      "Intégrations API",
-      "Portails métier",
-      "Tableaux de bord",
-      "Reporting avancé"
-    ],
-    technologies: ["Node.js", "Python", "Django", "PostgreSQL", "MongoDB", "Docker"],
-    icon: "⚙️",
-  },
-  "maintenance": {
-    title: "Maintenance & Support",
-    description: "Assurez la pérennité de vos applications avec nos contrats de maintenance.",
-    longDescription: "Nous vous accompagnons dans la durée avec des contrats de maintenance sur mesure pour garantir la sécurité, les performances et l'évolution de vos applications.",
-    features: [
-      "Optimisation des performances",
-      "Audit de sécurité",
-      "Mises à jour régulières",
-      "Support technique",
-      "Sauvegarde des données",
-      "Veille technologique"
-    ],
-    technologies: ["Monitoring", "Sécurité", "Refactoring", "CI/CD", "Cloud"],
-    icon: "🔧",
-  },
-};
 
 export default function ServiceDetailClient({ slug }) {
-  const service = serviceData[slug];
+  const service = services.find((item) => item.slug === slug);
 
   if (!service) {
     return (
@@ -102,7 +39,7 @@ export default function ServiceDetailClient({ slug }) {
         {/* En-tête */}
         <MotionWrapper direction="scale" duration={0.8}>
           <div className="flex items-center gap-4 mb-6">
-            <span className="text-6xl">{service.icon}</span>
+            <span className="text-6xl">{service.visual}</span>
             <h1 className="text-5xl font-bold text-gradient">{service.title}</h1>
           </div>
         </MotionWrapper>

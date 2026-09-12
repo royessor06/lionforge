@@ -27,7 +27,7 @@ export default function RootLoading() {
         {/* Barre de progression */}
         <MotionWrapper delay={0.4} direction="fade">
           <div className="w-64 h-1 bg-lion-gold bg-opacity-20 rounded-full overflow-hidden mx-auto">
-            <div className="h-full bg-gradient-to-r from-lion-gold to-lion-electric rounded-full animate-progress"></div>
+            <div className="h-full bg-linear-to-r from-lion-gold to-lion-electric rounded-full animate-progress"></div>
           </div>
         </MotionWrapper>
         

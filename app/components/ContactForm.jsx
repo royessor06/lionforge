@@ -5,6 +5,12 @@ import { useForm } from "react-hook-form";
 import emailjs from "emailjs-com";
 import { motion, AnimatePresence } from "framer-motion";
 
+const emailConfig = {
+  serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+  templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+  publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+};
+
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -15,9 +21,13 @@ export default function ContactForm() {
     setIsSubmitting(true);
     
     try {
+      if (!emailConfig.serviceId || !emailConfig.templateId || !emailConfig.publicKey) {
+        throw new Error("EmailJS configuration is missing");
+      }
+
       const result = await emailjs.send(
-        'service_kc4bqbd',
-        'template_x05prnd',
+        emailConfig.serviceId,
+        emailConfig.templateId,
         {
           from_name: data.name,
           from_email: data.email,
@@ -25,7 +35,7 @@ export default function ContactForm() {
           message: data.message,
           to_name: 'LionForge Team',
         },
-        'ps1TPw128vEGRf9t5'
+        emailConfig.publicKey
       );
       
       if (result.status === 200) {

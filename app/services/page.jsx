@@ -2,6 +2,7 @@
 
 import ServiceCard from "@/app/components/ServiceCard";
 import MotionWrapper from "@/app/components/MotionWrapper";
+import { services } from "@/app/data/content";
 import Link from "next/link";
 import { 
   Code, 
@@ -11,32 +12,12 @@ import {
   ChatText
 } from "@phosphor-icons/react";
 
-const services = [
-  {
-    title: "Développement Web",
-    description: "Sites vitrines, plateformes e‑commerce, applications SaaS.",
-    slug: "web-development",
-    icon: <Code size={32} weight="duotone" className="text-lion-gold" />,
-  },
-  {
-    title: "Applications Mobiles",
-    description: "iOS, Android, cross‑platform (React Native, Flutter).",
-    slug: "mobile-apps",
-    icon: <DeviceMobile size={32} weight="duotone" className="text-lion-gold" />,
-  },
-  {
-    title: "Solutions Sur Mesure",
-    description: "Systèmes métiers, automatisation, intégrations API.",
-    slug: "custom-solutions",
-    icon: <Gear size={32} weight="duotone" className="text-lion-gold" />,
-  },
-  {
-    title: "Maintenance & Support",
-    description: "Optimisation, sécurité, mises à jour continues.",
-    slug: "maintenance",
-    icon: <Wrench size={32} weight="duotone" className="text-lion-gold" />,
-  },
-];
+const serviceIcons = {
+  code: <Code size={32} weight="duotone" className="text-lion-gold" />,
+  mobile: <DeviceMobile size={32} weight="duotone" className="text-lion-gold" />,
+  gear: <Gear size={32} weight="duotone" className="text-lion-gold" />,
+  wrench: <Wrench size={32} weight="duotone" className="text-lion-gold" />,
+};
 
 export default function ServicesPage() {
   return (
@@ -64,7 +45,7 @@ export default function ServicesPage() {
               distance={30}
               duration={0.6}
             >
-              <ServiceCard {...service} />
+              <ServiceCard {...service} icon={serviceIcons[service.icon]} />
             </MotionWrapper>
           ))}
         </div>

@@ -1,11 +1,8 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import PageTransition from "@/app/components/PageTransition";
 import { Analytics } from "@vercel/analytics/react";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   metadataBase: new URL("https://lionforge.vercel.app"),
@@ -24,7 +21,7 @@ export const metadata = {
     siteName: "LionForge",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.svg",
         width: 1200,
         height: 630,
         alt: "LionForge",
@@ -43,10 +40,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr" className="scroll-smooth">
       <head>
-        <link rel="icon" href="/favicon1.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
+        <link rel="icon" href="/favicon.svg" sizes="any" />
       </head>
-      <body className={`${inter.className} bg-lion-dark text-white antialiased`} suppressHydrationWarning>
+      <body className="bg-lion-dark text-white antialiased" suppressHydrationWarning>
         <Navbar />
         <main className="pt-20 min-h-screen">
           <PageTransition>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { LinkedinLogo, TwitterLogo, GithubLogo } from "@phosphor-icons/react";
+import { Envelope, Phone } from "@phosphor-icons/react";
 
 const Footer = () => {
   return (
@@ -37,18 +37,17 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Réseaux sociaux */}
+          {/* Contact */}
           <div>
-            <h4 className="text-lion-gold font-semibold mb-4">Suivez-nous</h4>
-            <div className="flex space-x-4">
-              <a href="#" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">
-                <LinkedinLogo size={24} />
+            <h4 className="text-lion-gold font-semibold mb-4">Contact</h4>
+            <div className="space-y-3 text-sm">
+              <a href="mailto:contact@lionforge.com" className="flex items-center gap-2 text-lion-light text-opacity-70 hover:text-lion-gold transition">
+                <Envelope size={20} />
+                contact@lionforge.com
               </a>
-              <a href="#" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">
-                <TwitterLogo size={24} />
-              </a>
-              <a href="#" className="text-lion-light text-opacity-70 hover:text-lion-gold transition">
-                <GithubLogo size={24} />
+              <a href="tel:+2290151229682" className="flex items-center gap-2 text-lion-light text-opacity-70 hover:text-lion-gold transition">
+                <Phone size={20} />
+                +229 01 51 22 96 82
               </a>
             </div>
           </div>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <!-- Fond -->
+  <rect width="180" height="180" fill="#0A0F1E"/>
+  
+  <!-- Cercle d'or -->
+  <circle cx="90" cy="90" r="80" fill="none" stroke="#FBBF24" stroke-width="3"/>
+  
+  <!-- Texte LionForge -->
+  <text x="90" y="100" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#FBBF24" text-anchor="middle" dominant-baseline="middle">🦁</text>
+  
+  <!-- Accent électrique -->
+  <circle cx="90" cy="90" r="75" fill="none" stroke="#3B82F6" stroke-width="1" opacity="0.5"/>
+</svg>

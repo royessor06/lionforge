@@ -7,35 +7,7 @@ import "swiper/css/effect-cards";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Image from "next/image";
-import Link from "next/link";
-import { motion } from "framer-motion";
-
-const projects = [
-  {
-    title: "E‑commerce Luxe",
-    category: "Web",
-    image: null,
-    slug: "ecommerce-luxe",
-    stack: "Next.js, Shopify",
-    description: "Plateforme e-commerce haut de gamme.",
-  },
-  {
-    title: "App Fitness",
-    category: "Mobile",
-    image: null,
-    slug: "app-fitness",
-    stack: "React Native",
-    description: "Application de suivi fitness.",
-  },
-  {
-    title: "ERP Industriel",
-    category: "Sur mesure",
-    image: null,
-    slug: "erp-industriel",
-    stack: "Django, PostgreSQL",
-    description: "Système de gestion d'entreprise.",
-  },
-];
+import { projects } from "@/app/data/content";
 
 export default function ProjectCarousel() {
   return (
@@ -55,7 +27,13 @@ export default function ProjectCarousel() {
             <div className="bg-lion-surface border border-lion-gold border-opacity-30 rounded-3xl overflow-hidden h-full">
               <div className="relative h-48 bg-lion-dark">
                 {project.image ? (
-                  <Image src={project.image} alt={project.title} fill className="object-cover" />
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="(min-width: 768px) 448px, 100vw"
+                    className="object-cover"
+                  />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
                     <span className="text-6xl text-lion-gold text-opacity-50">
@@ -74,7 +52,9 @@ export default function ProjectCarousel() {
               <div className="p-6">
                 <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
                 <p className="text-lion-light text-opacity-70 text-sm mb-4">{project.description}</p>
-                <span className="text-xs text-lion-gold">{project.stack}</span>
+                <span className="text-xs text-lion-gold">
+                  {Array.isArray(project.stack) ? project.stack.join(", ") : project.stack}
+                </span>
               </div>
             </div>
           </SwiperSlide>

@@ -22,6 +22,10 @@ const MotionWrapper = ({
 
   const getInitialPosition = () => {
     switch(direction) {
+      case "fade": return {};
+      case "scale": return { scale: 0.96 };
+      case "zoom-out": return { scale: 1.04 };
+      case "slide-up": return { y: distance };
       case "up": return { y: distance };
       case "down": return { y: -distance };
       case "left": return { x: distance };
@@ -32,7 +36,7 @@ const MotionWrapper = ({
 
   const variants = {
     hidden: { opacity: 0, ...getInitialPosition() },
-    visible: { opacity: 1, y: 0, x: 0, transition: { duration, delay } },
+    visible: { opacity: 1, y: 0, x: 0, scale: 1, transition: { duration, delay } },
   };
 
   if (!isMounted) {

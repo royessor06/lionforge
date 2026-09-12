@@ -5,6 +5,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const ProjectCard = ({ title, category, image, slug, stack }) => {
+  const stackLabel = Array.isArray(stack) ? stack.join(", ") : stack;
+
   return (
     <motion.div
       whileHover={{ y: -5 }}
@@ -16,6 +18,7 @@ const ProjectCard = ({ title, category, image, slug, stack }) => {
             src={image}
             alt={title}
             fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
@@ -35,8 +38,8 @@ const ProjectCard = ({ title, category, image, slug, stack }) => {
         
         {/* Stack */}
         <div className="absolute top-4 right-4 z-10">
-          <span className="px-3 py-1 bg-lion-dark bg-opacity-80 text-lion-light rounded-full text-xs border border-lion-gold border-opacity-30">
-            {stack}
+          <span className="block max-w-40 truncate px-3 py-1 bg-lion-dark bg-opacity-80 text-lion-light rounded-full text-xs border border-lion-gold border-opacity-30">
+            {stackLabel}
           </span>
         </div>
       </div>
@@ -47,7 +50,7 @@ const ProjectCard = ({ title, category, image, slug, stack }) => {
         </h3>
         
         <p className="text-lion-light text-opacity-70 mb-4 line-clamp-2">
-          Projet de {category} utilisant {stack}
+          Projet de {category} utilisant {stackLabel}
         </p>
         
         <Link 

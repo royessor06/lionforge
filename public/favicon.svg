@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Favicon simple -->
+  <rect width="32" height="32" fill="#0A0F1E"/>
+  <rect x="2" y="2" width="28" height="28" fill="none" stroke="#FBBF24" stroke-width="2"/>
+  <text x="16" y="20" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FBBF24" text-anchor="middle">🦁</text>
+</svg>
