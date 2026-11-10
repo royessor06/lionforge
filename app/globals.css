@@ -2,119 +2,179 @@
 
 @layer base {
   :root {
-    --lion-dark: #0A0F1E;
-    --lion-gold: #FBBF24;
-    --lion-electric: #3B82F6;
-    --lion-light: #F3F4F6;
-    --lion-muted: #94A3B8;
-    --lion-surface: #111827;
+    /* Primary Color System */
+    --lion-obsidian: #050505;
+    --lion-graphite: #101114;
+    --lion-dark-steel: #20232A;
+    --lion-gold: #FFD700;
+    --lion-orange: #FF4500;
+    --lion-steel: #8892B0;
+    --lion-white: #F5F3EE;
+
+    /* Supporting Colors */
+    --lion-muted-grey: #929292;
+    --lion-dark-grey: #343434;
+    --lion-soft-gold: #C5A34A;
+
+    /* Semantic Aliases */
+    --lion-black: var(--lion-obsidian);
+    --lion-dark: var(--lion-obsidian);
+    --lion-surface: var(--lion-graphite);
+    --lion-surface-card: var(--lion-dark-steel);
+    --lion-muted: var(--lion-steel);
+    --lion-light: var(--lion-white);
+    --lion-electric: var(--lion-orange);
   }
 
   body {
-    background-color: var(--lion-dark);
-    color: white;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: var(--lion-obsidian);
+    color: var(--lion-white);
+    font-family: var(--font-body, Inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: var(--font-heading, "Space Grotesk"), system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.025em;
   }
 
   a {
     text-decoration: none;
     color: inherit;
   }
-  
-  a:hover {
-    text-decoration: none;
-  }
 
-  /* Scrollbar */
+  /* Custom Forge Scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background-color: var(--lion-dark);
+    background-color: #050505;
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: rgba(251, 191, 36, 0.3);
+    background-color: rgba(255, 215, 0, 0.25);
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(251, 191, 36, 0.5);
+    background-color: rgba(255, 215, 0, 0.5);
   }
 }
 
 @layer components {
-  .glass-card {
-    background-color: rgba(0, 0, 0, 0.8);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Forge Glassmorphism */
+  .forge-glass {
+    background: rgba(16, 17, 20, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 215, 0, 0.12);
   }
-  
-  .gradient-text {
-    background: linear-gradient(to right, var(--lion-gold), var(--lion-electric));
+
+  .forge-glass-card {
+    background: linear-gradient(145deg, rgba(32, 35, 42, 0.75) 0%, rgba(16, 17, 20, 0.88) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 215, 0, 0.12);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.75);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .forge-glass-card:hover {
+    border-color: rgba(255, 215, 0, 0.35);
+    box-shadow: 0 25px 50px -12px rgba(255, 69, 0, 0.15), 0 0 20px rgba(255, 215, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .glass-card {
+    background-color: rgba(16, 17, 20, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 215, 0, 0.12);
+  }
+
+  /* Forge Metallic Gradient Text */
+  .gradient-text, .text-gradient {
+    background: linear-gradient(135deg, #F5F3EE 0%, #FFD700 45%, #FFA500 75%, #FF4500 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  
-  .hover-glow {
-    transition: all 0.3s;
+
+  .gold-gradient-text {
+    background: linear-gradient(135deg, #FFF9D2 0%, #FFD700 50%, #C5A34A 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
-  .hover-glow:hover {
-    box-shadow: 0 10px 25px -5px rgba(251, 191, 36, 0.2);
+
+  .steel-gradient-text {
+    background: linear-gradient(135deg, #F5F3EE 0%, #CBD5E1 50%, #8892B0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
-  
+
+  .forge-btn-primary {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: #050505;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+  }
+
+  .forge-btn-primary:hover {
+    box-shadow: 0 0 35px rgba(255, 69, 0, 0.5), 0 0 15px rgba(255, 215, 0, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .forge-btn-secondary {
+    background: rgba(16, 17, 20, 0.6);
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    color: #F5F3EE;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .forge-btn-secondary:hover {
+    border-color: #FFD700;
+    background: rgba(255, 215, 0, 0.08);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
   .card {
     background-color: var(--lion-surface);
     border-radius: 1rem;
-    transition: all 0.5s;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
 @layer utilities {
-  .hide-mobile {
-    display: none;
-  }
-  @media (min-width: 768px) {
-    .hide-mobile {
-      display: block;
-    }
-  }
-  
-  .show-mobile {
-    display: block;
-  }
-  @media (min-width: 768px) {
-    .show-mobile {
-      display: none;
-    }
-  }
-  
-  .text-gradient {
-    background: linear-gradient(to right, var(--lion-gold), var(--lion-electric));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  
-  .glass {
-    background-color: rgba(0, 0, 0, 0.8);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  .forge-grid-pattern {
+    background-image: linear-gradient(rgba(255, 215, 0, 0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 215, 0, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
   }
 
-  /* Utilitaires d'espacement supplémentaires */
-  .section-padding {
-    @apply py-16 px-6 md:py-20;
+  .forge-radial-glow {
+    background: radial-gradient(circle at 50% 50%, rgba(255, 69, 0, 0.15) 0%, rgba(255, 215, 0, 0.04) 40%, transparent 70%);
   }
-  
+
+  .section-padding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
   .container-custom {
-    @apply max-w-7xl mx-auto;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

@@ -2,175 +2,232 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import emailjs from "emailjs-com";
-import { motion, AnimatePresence } from "framer-motion";
-
-const emailConfig = {
-  serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-  templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-  publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-};
+import { Send, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
-  
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const [submitResult, setSubmitResult] = useState(null);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      projectType: "Site web",
+      budget: "Non défini / À cadrer",
+    },
+  });
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    
-    try {
-      if (!emailConfig.serviceId || !emailConfig.templateId || !emailConfig.publicKey) {
-        throw new Error("EmailJS configuration is missing");
-      }
+    setSubmitResult(null);
 
-      const result = await emailjs.send(
-        emailConfig.serviceId,
-        emailConfig.templateId,
-        {
-          from_name: data.name,
-          from_email: data.email,
-          company: data.company,
-          message: data.message,
-          to_name: 'LionForge Team',
-        },
-        emailConfig.publicKey
-      );
-      
-      if (result.status === 200) {
-        setSubmitStatus('success');
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const resData = await response.json();
+
+      if (response.ok && resData.success) {
+        setSubmitResult({
+          type: "success",
+          message: resData.message || "Votre message a été transmis avec succès !",
+        });
         reset();
-        setTimeout(() => setSubmitStatus(null), 5000);
+      } else {
+        setSubmitResult({
+          type: "error",
+          message: resData.error || "Une erreur est survenue lors de l'envoi.",
+        });
       }
-    } catch (error) {
-      console.error('Erreur:', error);
-      setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus(null), 5000);
+    } catch (err) {
+      console.error("Submission error:", err);
+      setSubmitResult({
+        type: "error",
+        message: "Impossible de joindre le serveur. Vous pouvez aussi nous contacter à contact@lionforge.com.",
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const projectTypes = [
+    "Site web",
+    "Application mobile",
+    "Logiciel sur mesure",
+    "Solution numérique",
+    "Conseil technologique",
+    "Autre",
+  ];
+
+  const budgetRanges = [
+    "Non défini / À cadrer",
+    "< 5 000 €",
+    "5 000 € - 15 000 €",
+    "15 000 € - 30 000 €",
+    "> 30 000 €",
+  ];
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-2xl mx-auto">
-      {/* Message de statut */}
-      <AnimatePresence>
-        {submitStatus && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className={`mb-8 p-4 rounded-lg text-sm ${
-              submitStatus === 'success' 
-                ? 'bg-green-500/10 border border-green-500/20 text-green-400'
-                : 'bg-red-500/10 border border-red-500/20 text-red-400'
-            }`}
+    <div className="w-full max-w-2xl mx-auto">
+      {/* Feedback Toast */}
+      {submitResult && (
+        <div
+          className={`mb-8 p-4 rounded-xl border flex items-start gap-3 transition-all ${
+            submitResult.type === "success"
+              ? "bg-[#FFD700]/10 border-[#FFD700]/30 text-[#FFD700]"
+              : "bg-[#FF4500]/10 border-[#FF4500]/30 text-[#FF4500]"
+          }`}
+          role="alert"
+        >
+          {submitResult.type === "success" ? (
+            <CheckCircle2 size={20} className="shrink-0 mt-0.5" />
+          ) : (
+            <AlertCircle size={20} className="shrink-0 mt-0.5" />
+          )}
+          <div className="text-sm leading-relaxed">{submitResult.message}</div>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* Name and Email Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-xs uppercase tracking-wider font-semibold text-[#8892B0] mb-2">
+              Nom complet <span className="text-[#FF4500]">*</span>
+            </label>
+            <input
+              type="text"
+              {...register("name", { required: "Veuillez renseigner votre nom complet." })}
+              placeholder="Ex: Jean-Luc Dupont"
+              className="w-full px-4 py-3.5 rounded-xl bg-[#101114] border border-white/10 text-white placeholder-[#8892B0]/40 text-sm focus:border-[#FFD700] focus:outline-none transition-colors shadow-inner"
+            />
+            {errors.name && (
+              <p className="text-xs text-[#FF4500] mt-1.5">{errors.name.message}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-xs uppercase tracking-wider font-semibold text-[#8892B0] mb-2">
+              Adresse Email <span className="text-[#FF4500]">*</span>
+            </label>
+            <input
+              type="email"
+              {...register("email", {
+                required: "Veuillez renseigner votre adresse e-mail.",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Format d'adresse e-mail invalide.",
+                },
+              })}
+              placeholder="jean@entreprise.com"
+              className="w-full px-4 py-3.5 rounded-xl bg-[#101114] border border-white/10 text-white placeholder-[#8892B0]/40 text-sm focus:border-[#FFD700] focus:outline-none transition-colors shadow-inner"
+            />
+            {errors.email && (
+              <p className="text-xs text-[#FF4500] mt-1.5">{errors.email.message}</p>
+            )}
+          </div>
+        </div>
+
+        {/* Company and Project Type Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div>
+            <label className="block text-xs uppercase tracking-wider font-semibold text-[#8892B0] mb-2">
+              Entreprise <span className="text-[10px] text-[#8892B0]/60">(Optionnel)</span>
+            </label>
+            <input
+              type="text"
+              {...register("company")}
+              placeholder="Société ou projet"
+              className="w-full px-4 py-3.5 rounded-xl bg-[#101114] border border-white/10 text-white placeholder-[#8892B0]/40 text-sm focus:border-[#FFD700] focus:outline-none transition-colors shadow-inner"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs uppercase tracking-wider font-semibold text-[#8892B0] mb-2">
+              Type de projet
+            </label>
+            <select
+              {...register("projectType")}
+              className="w-full px-4 py-3.5 rounded-xl bg-[#101114] border border-white/10 text-white text-sm focus:border-[#FFD700] focus:outline-none transition-colors shadow-inner cursor-pointer"
+            >
+              {projectTypes.map((type) => (
+                <option key={type} value={type} className="bg-[#101114] text-white">
+                  {type}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs uppercase tracking-wider font-semibold text-[#8892B0] mb-2">
+              Budget indicatif <span className="text-[10px] text-[#8892B0]/60">(Optionnel)</span>
+            </label>
+            <select
+              {...register("budget")}
+              className="w-full px-4 py-3.5 rounded-xl bg-[#101114] border border-white/10 text-white text-sm focus:border-[#FFD700] focus:outline-none transition-colors shadow-inner cursor-pointer"
+            >
+              {budgetRanges.map((range) => (
+                <option key={range} value={range} className="bg-[#101114] text-white">
+                  {range}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Project Description Message */}
+        <div>
+          <label className="block text-xs uppercase tracking-wider font-semibold text-[#8892B0] mb-2">
+            Description du projet & Enjeux <span className="text-[#FF4500]">*</span>
+          </label>
+          <textarea
+            rows={5}
+            {...register("message", {
+              required: "Veuillez détailler les grandes lignes de votre projet.",
+              minLength: {
+                value: 10,
+                message: "Veuillez fournir au moins 10 caractères.",
+              },
+            })}
+            placeholder="Parlez-nous de vos objectifs, des fonctionnalités prioritaires, des délais envisagés..."
+            className="w-full px-4 py-3.5 rounded-xl bg-[#101114] border border-white/10 text-white placeholder-[#8892B0]/40 text-sm focus:border-[#FFD700] focus:outline-none transition-colors shadow-inner resize-none"
+          />
+          {errors.message && (
+            <p className="text-xs text-[#FF4500] mt-1.5">{errors.message.message}</p>
+          )}
+        </div>
+
+        {/* Submit Button */}
+        <div>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full forge-btn-primary py-4 rounded-xl text-sm font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 shadow-2xl disabled:opacity-50 cursor-pointer"
           >
-            {submitStatus === 'success' 
-              ? '✓ Message envoyé avec succès'
-              : '✗ Erreur - veuillez réessayer'}
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {isSubmitting ? (
+              <span className="inline-flex items-center gap-2">
+                <span className="w-4 h-4 border-2 border-[#050505] border-t-transparent rounded-full animate-spin" />
+                <span>Transmission à la Forge...</span>
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-2">
+                <Send size={16} />
+                <span>Forger mon projet</span>
+              </span>
+            )}
+          </button>
+        </div>
 
-      {/* Nom */}
-      <div className="mb-6">
-        <label className="block text-lion-gold text-sm font-medium mb-2">
-          Nom complet <span className="text-red-400">*</span>
-        </label>
-        <input
-          {...register('name', { required: 'Le nom est requis' })}
-          className="w-full px-4 py-3 bg-lion-surface border border-lion-gold/20 rounded-lg focus:border-lion-gold focus:outline-none transition text-white placeholder-lion-muted/50"
-          placeholder="Jean Dupont"
-        />
-        {errors.name && (
-          <p className="text-red-400 text-sm mt-1">{errors.name.message}</p>
-        )}
-      </div>
-
-      {/* Email */}
-      <div className="mb-6">
-        <label className="block text-lion-gold text-sm font-medium mb-2">
-          Email <span className="text-red-400">*</span>
-        </label>
-        <input
-          type="email"
-          {...register('email', { 
-            required: 'L\'email est requis',
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: 'Email invalide'
-            }
-          })}
-          className="w-full px-4 py-3 bg-lion-surface border border-lion-gold/20 rounded-lg focus:border-lion-gold focus:outline-none transition text-white placeholder-lion-muted/50"
-          placeholder="jean@exemple.com"
-        />
-        {errors.email && (
-          <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>
-        )}
-      </div>
-
-      {/* Entreprise (optionnel) */}
-      <div className="mb-6">
-        <label className="block text-lion-gold text-sm font-medium mb-2">
-          Entreprise
-        </label>
-        <input
-          {...register('company')}
-          className="w-full px-4 py-3 bg-lion-surface border border-lion-gold/20 rounded-lg focus:border-lion-gold focus:outline-none transition text-white placeholder-lion-muted/50"
-          placeholder="Votre entreprise (optionnel)"
-        />
-      </div>
-
-      {/* Message */}
-      <div className="mb-8">
-        <label className="block text-lion-gold text-sm font-medium mb-2">
-          Message <span className="text-red-400">*</span>
-        </label>
-        <textarea
-          rows="5"
-          {...register('message', { 
-            required: 'Le message est requis',
-            minLength: {
-              value: 10,
-              message: 'Le message doit faire au moins 10 caractères'
-            }
-          })}
-          className="w-full px-4 py-3 bg-lion-surface border border-lion-gold/20 rounded-lg focus:border-lion-gold focus:outline-none transition text-white placeholder-lion-muted/50 resize-none"
-          placeholder="Décrivez votre projet..."
-        />
-        {errors.message && (
-          <p className="text-red-400 text-sm mt-1">{errors.message.message}</p>
-        )}
-      </div>
-
-      <motion.button
-        type="submit"
-        disabled={isSubmitting}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="w-full bg-lion-gold text-lion-dark py-4 rounded-lg font-semibold 
-                  hover:bg-opacity-90 transition-all duration-300 
-                  shadow-lg shadow-lion-gold/20 disabled:opacity-50"
-      >
-        {isSubmitting ? (
-          <span className="flex items-center justify-center gap-2">
-            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-            </svg>
-            Envoi...
-          </span>
-        ) : (
-          'Envoyer'
-        )}
-      </motion.button>
-
-      {/* Mention légale */}
-      <p className="text-xs text-center text-lion-muted/50 mt-6">
-        En soumettant ce formulaire, vous acceptez notre politique de confidentialité
-      </p>
-    </form>
+        <p className="text-xs text-center text-[#8892B0]/60 mt-4">
+          Réponse garantie sous 24 heures ouvrées. Données protégées par le secret professionnel.
+        </p>
+      </form>
+    </div>
   );
 }

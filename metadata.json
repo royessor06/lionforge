@@ -1,0 +1,6 @@
+{
+  "name": "LionForge — Agence Numérique & Technologique",
+  "description": "Expérience WebGL 3D immersive et forge numérique d'élite pour la création de solutions web, mobiles et logicielles sur mesure.",
+  "permissions": [],
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

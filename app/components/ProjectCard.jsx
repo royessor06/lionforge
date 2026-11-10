@@ -2,69 +2,82 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { ArrowUpRight, Code, Sparkles, Layers } from "lucide-react";
 
-const ProjectCard = ({ title, category, image, slug, stack }) => {
-  const stackLabel = Array.isArray(stack) ? stack.join(", ") : stack;
+export default function ProjectCard({ title, category, image, slug, stack = [], description }) {
+  const stackList = Array.isArray(stack) ? stack : [stack];
 
   return (
-    <motion.div
-      whileHover={{ y: -5 }}
-      className="group bg-lion-surface border border-lion-gold border-opacity-20 rounded-xl overflow-hidden hover:border-lion-gold hover:border-opacity-60 hover:shadow-xl hover:shadow-lion-gold hover:shadow-opacity-10 transition-all duration-300"
-    >
-      <div className="relative h-56 overflow-hidden bg-lion-dark">
+    <div className="group forge-glass-card rounded-2xl overflow-hidden border border-white/10 hover:border-[#FFD700]/40 transition-all duration-400 flex flex-col h-full">
+      {/* Visual Header / Banner */}
+      <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-[#0A0B0E]">
         {image ? (
           <Image
             src={image}
             alt={title}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <span className="text-6xl text-lion-gold text-opacity-50 group-hover:text-opacity-100 transition-all">
-              {category === "Web" ? "🌐" : category === "Mobile" ? "📱" : "⚙️"}
+          <div className="w-full h-full flex flex-col items-center justify-center relative p-6">
+            {/* Forge Blueprint Graphic */}
+            <div className="absolute inset-0 opacity-10 [background-image:linear-gradient(rgba(255,215,0,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(255,215,0,0.2)_1px,transparent_1px)] [background-size:24px_24px]" />
+            <div className="w-14 h-14 rounded-2xl bg-[#1A1C23] border border-[#FFD700]/30 flex items-center justify-center text-[#FFD700] mb-2 shadow-lg group-hover:scale-110 transition-transform">
+              {category === "Web" ? (
+                <Code size={26} />
+              ) : category === "Mobile" ? (
+                <Sparkles size={26} />
+              ) : (
+                <Layers size={26} />
+              )}
+            </div>
+            <span className="text-xs uppercase tracking-widest text-[#8892B0]/80 font-medium">
+              Architecture Forgée
             </span>
           </div>
         )}
-        
-        {/* Badge catégorie */}
-        <div className="absolute top-4 left-4 z-10">
-          <span className="px-3 py-1 bg-lion-gold text-lion-dark rounded-full text-sm font-bold">
+
+        {/* Category Badge */}
+        <div className="absolute top-3.5 left-3.5 z-10">
+          <span className="px-3 py-1 rounded-full bg-[#050505]/85 border border-[#FFD700]/30 text-[#FFD700] text-xs font-semibold tracking-wide uppercase backdrop-blur-md">
             {category}
           </span>
         </div>
-        
-        {/* Stack */}
-        <div className="absolute top-4 right-4 z-10">
-          <span className="block max-w-40 truncate px-3 py-1 bg-lion-dark bg-opacity-80 text-lion-light rounded-full text-xs border border-lion-gold border-opacity-30">
-            {stackLabel}
-          </span>
-        </div>
       </div>
 
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-lion-gold transition-colors">
-          {title}
-        </h3>
-        
-        <p className="text-lion-light text-opacity-70 mb-4 line-clamp-2">
-          Projet de {category} utilisant {stackLabel}
-        </p>
-        
-        <Link 
+      {/* Card Content */}
+      <div className="p-6 flex flex-col justify-between flex-1">
+        <div>
+          {/* Tech Stack Pills */}
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {stackList.slice(0, 3).map((item, idx) => (
+              <span
+                key={idx}
+                className="px-2.5 py-0.5 rounded-md bg-white/[0.04] border border-white/5 text-[11px] font-mono text-[#8892B0]"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <h3 className="font-heading text-lg font-bold text-white mb-2 group-hover:text-[#FFD700] transition-colors">
+            {title}
+          </h3>
+
+          <p className="text-xs sm:text-sm text-[#8892B0] line-clamp-2 leading-relaxed font-light mb-4">
+            {description || `Solution de ${category} développée avec ${stackList.join(", ")}`}
+          </p>
+        </div>
+
+        <Link
           href={`/projects/${slug}`}
-          className="inline-flex items-center text-lion-electric hover:text-lion-gold transition-colors group/link"
+          className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold text-[#8892B0] group-hover:text-[#FFD700] transition-colors pt-3 border-t border-white/5"
         >
-          <span>Voir l'étude de cas</span>
-          <svg className="w-4 h-4 ml-2 group-hover/link:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
+          <span>Consulter l'architecture</span>
+          <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
         </Link>
       </div>
-    </motion.div>
+    </div>
   );
-};
-
-export default ProjectCard;
+}

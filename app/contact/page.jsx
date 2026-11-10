@@ -1,106 +1,86 @@
 "use client";
 
 import ContactForm from "@/app/components/ContactForm";
-import MotionWrapper from "@/app/components/MotionWrapper";
-import { MapPin, Envelope, Phone, Clock } from "@phosphor-icons/react";
+import { MapPin, Mail, Phone, Clock, Flame } from "lucide-react";
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-lion-dark text-white py-20 px-6">
-      <div className="max-w-7xl mx-auto">
-        
-        <MotionWrapper direction="scale" duration={0.8}>
-          <h1 className="text-5xl md:text-6xl font-bold text-gradient text-center mb-6">
-            Contactez-nous
+    <div className="min-h-screen bg-[#050505] text-[#F5F3EE] pt-32 pb-24 px-6 relative overflow-hidden">
+      {/* Background Ambience */}
+      <div className="absolute inset-0 pointer-events-none opacity-10 [background-image:linear-gradient(rgba(255,215,0,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,215,0,0.1)_1px,transparent_1px)] [background-size:48px_48px]" />
+      <div className="absolute top-24 left-1/4 w-[500px] h-[500px] bg-[#FF4500]/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <span className="px-3.5 py-1.5 rounded-full bg-[#101114] border border-[#FFD700]/30 text-xs uppercase tracking-[0.25em] font-semibold text-[#FFD700] inline-flex items-center gap-2 mb-4">
+            <Flame size={14} className="text-[#FF4500]" />
+            Démarrer la Forge
+          </span>
+
+          {/* Master Brief Headline */}
+          <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white uppercase max-w-4xl mx-auto mb-6 leading-tight">
+            Votre prochain projet
+            <span className="block gradient-text mt-1">Commence ici.</span>
           </h1>
-        </MotionWrapper>
-        
-        <MotionWrapper direction="up" delay={0.2} distance={20}>
-          <p className="text-xl text-lion-muted text-center max-w-3xl mx-auto mb-16">
-            Vous avez un projet en tête ? Une question ? Nous sommes là pour vous répondre.
+
+          {/* Master Brief Supporting Copy */}
+          <p className="text-base sm:text-lg text-[#8892B0] max-w-2xl mx-auto font-light leading-relaxed">
+            Vous avez une idée, un besoin ou un projet à concrétiser ? Parlons-en et imaginons ensemble la solution adaptée à vos ambitions.
           </p>
-        </MotionWrapper>
-
-        {/* Cartes de contact - HAUTEUR FIXE */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-          <MotionWrapper delay={0.3} direction="zoom-out">
-            <div className="bg-lion-surface border border-lion-gold/20 p-6 rounded-xl hover:border-lion-gold/60 hover:shadow-[0_0_25px_rgba(251,191,36,0.15)] transition-all duration-300 group text-center h-[220px] flex flex-col justify-center">
-              <div className="w-16 h-16 bg-lion-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                <MapPin size={32} weight="duotone" className="text-lion-gold" />
-              </div>
-              <h3 className="text-lg font-semibold text-lion-gold mb-2">Notre bureau</h3>
-              <p className="text-lion-muted text-sm">
-                Derrière le CEG Pahou<br />
-                Pahou, Bénin
-              </p>
-            </div>
-          </MotionWrapper>
-
-          <MotionWrapper delay={0.4} direction="zoom-out">
-            <div className="bg-lion-surface border border-lion-gold/20 p-6 rounded-xl hover:border-lion-gold/60 hover:shadow-[0_0_25px_rgba(251,191,36,0.15)] transition-all duration-300 group text-center h-[220px] flex flex-col justify-center">
-              <div className="w-16 h-16 bg-lion-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                <Envelope size={32} weight="duotone" className="text-lion-gold" />
-              </div>
-              <h3 className="text-lg font-semibold text-lion-gold mb-2">Email</h3>
-              <p className="text-lion-muted text-sm">
-                <a href="mailto:contact@lionforge.com" className="hover:text-lion-gold transition-colors duration-300">
-                  contact@lionforge.com
-                </a>
-              </p>
-              <p className="text-lion-muted text-xs mt-2">Réponse sous 24h</p>
-            </div>
-          </MotionWrapper>
-
-          <MotionWrapper delay={0.5} direction="zoom-out">
-            <div className="bg-lion-surface border border-lion-gold/20 p-6 rounded-xl hover:border-lion-gold/60 hover:shadow-[0_0_25px_rgba(251,191,36,0.15)] transition-all duration-300 group text-center h-[220px] flex flex-col justify-center">
-              <div className="w-16 h-16 bg-lion-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                <Phone size={32} weight="duotone" className="text-lion-gold" />
-              </div>
-              <h3 className="text-lg font-semibold text-lion-gold mb-2">Téléphone</h3>
-              <p className="text-lion-muted text-sm">
-                <a href="tel:+2290151229682" className="hover:text-lion-gold transition-colors duration-300">
-                  +229 01 51 22 96 82
-                </a>
-              </p>
-              <p className="text-lion-muted text-xs mt-2">Lun-Ven, 8h-18h</p>
-            </div>
-          </MotionWrapper>
-
-          <MotionWrapper delay={0.6} direction="zoom-out">
-            <div className="bg-lion-surface border border-lion-gold/20 p-6 rounded-xl hover:border-lion-gold/60 hover:shadow-[0_0_25px_rgba(251,191,36,0.15)] transition-all duration-300 group text-center h-[220px] flex flex-col justify-center">
-              <div className="w-16 h-16 bg-lion-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                <Clock size={32} weight="duotone" className="text-lion-gold" />
-              </div>
-              <h3 className="text-lg font-semibold text-lion-gold mb-2">Horaires</h3>
-              <p className="text-lion-muted text-sm">
-                Lundi - Vendredi<br />
-                8h00 - 18h00
-              </p>
-            </div>
-          </MotionWrapper>
         </div>
 
-        {/* Formulaire - ESPACEMENT UNIFORME AVEC LES CARTES */}
-        <MotionWrapper delay={0.7} direction="slide-up">
-          <div className="bg-lion-surface border border-lion-gold/20 p-10 rounded-2xl max-w-4xl mx-auto hover:border-lion-gold/60 transition-all duration-300 mb-20">
-            <h2 className="text-3xl font-bold text-gradient mb-8 text-center">
-              Envoyez-nous un message
-            </h2>
-            <ContactForm />
+        {/* Contact Info Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="forge-glass-card p-6 rounded-2xl border border-white/10 text-center">
+            <div className="w-12 h-12 rounded-xl bg-[#1A1C23] border border-[#FFD700]/30 flex items-center justify-center mx-auto mb-4 text-[#FFD700]">
+              <MapPin size={22} />
+            </div>
+            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-white mb-1">Bureau</h3>
+            <p className="text-xs text-[#8892B0] leading-relaxed">
+              Cotonou & Pahou<br />
+              Bénin & International
+            </p>
           </div>
-        </MotionWrapper>
 
-        {/* Carte - MÊME ESPACEMENT QUE LE RESTE */}
-        <MotionWrapper delay={0.9} direction="fade">
-          <div className="h-[400px] rounded-xl overflow-hidden border border-lion-gold/20 hover:border-lion-gold/60 transition-all duration-300">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63482.62571275139!2d2.17955845!3d6.37846765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10233b5c2a3b9b9f%3A0x7f3b7e5b5e5b5e5b!2sPahou%2C%20B%C3%A9nin!5e0!3m2!1sfr!2sfr!4v1234567890123!5m2!1sfr!2sfr"
-              className="w-full h-full"
-              loading="lazy"
-              allowFullScreen
-            />
+          <div className="forge-glass-card p-6 rounded-2xl border border-white/10 text-center">
+            <div className="w-12 h-12 rounded-xl bg-[#1A1C23] border border-[#FFD700]/30 flex items-center justify-center mx-auto mb-4 text-[#FFD700]">
+              <Mail size={22} />
+            </div>
+            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-white mb-1">Email</h3>
+            <a href="mailto:contact@lionforge.com" className="text-xs text-[#8892B0] hover:text-[#FFD700] transition-colors block">
+              contact@lionforge.com
+            </a>
+            <span className="text-[10px] text-[#8892B0]/60 mt-1 block">Réponse sous 24h</span>
           </div>
-        </MotionWrapper>
+
+          <div className="forge-glass-card p-6 rounded-2xl border border-white/10 text-center">
+            <div className="w-12 h-12 rounded-xl bg-[#1A1C23] border border-[#FFD700]/30 flex items-center justify-center mx-auto mb-4 text-[#FFD700]">
+              <Phone size={22} />
+            </div>
+            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-white mb-1">Téléphone</h3>
+            <a href="tel:+2290151229682" className="text-xs text-[#8892B0] hover:text-[#FFD700] transition-colors block">
+              +229 01 51 22 96 82
+            </a>
+            <span className="text-[10px] text-[#8892B0]/60 mt-1 block">Lun - Ven, 8h - 18h</span>
+          </div>
+
+          <div className="forge-glass-card p-6 rounded-2xl border border-white/10 text-center">
+            <div className="w-12 h-12 rounded-xl bg-[#1A1C23] border border-[#FFD700]/30 flex items-center justify-center mx-auto mb-4 text-[#FFD700]">
+              <Clock size={22} />
+            </div>
+            <h3 className="font-heading text-sm font-bold uppercase tracking-wider text-white mb-1">Disponibilité</h3>
+            <p className="text-xs text-[#8892B0] leading-relaxed">
+              Support continu 24/7<br />
+              pour nos clients sous contrat
+            </p>
+          </div>
+        </div>
+
+        {/* High-conversion Form */}
+        <div className="forge-glass-card rounded-3xl p-8 sm:p-12 border border-[#FFD700]/25 max-w-4xl mx-auto shadow-2xl">
+          <ContactForm />
+        </div>
       </div>
     </div>
   );

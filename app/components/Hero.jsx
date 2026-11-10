@@ -1,109 +1,161 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Code, DeviceMobile, Lightning } from "@phosphor-icons/react";
+import gsap from "gsap";
+import { ArrowRight, ChevronDown, Sparkles } from "lucide-react";
 
-const heroParticles = [
-  { top: "12%", left: "18%", delay: "0s", duration: "8s" },
-  { top: "24%", left: "72%", delay: "1.2s", duration: "10s" },
-  { top: "38%", left: "84%", delay: "2.4s", duration: "9s" },
-  { top: "52%", left: "11%", delay: "0.8s", duration: "11s" },
-  { top: "65%", left: "28%", delay: "3s", duration: "7s" },
-  { top: "74%", left: "78%", delay: "1.8s", duration: "12s" },
-  { top: "18%", left: "45%", delay: "3.4s", duration: "8s" },
-  { top: "86%", left: "52%", delay: "0.4s", duration: "10s" },
-  { top: "44%", left: "61%", delay: "2.8s", duration: "9s" },
-  { top: "30%", left: "25%", delay: "4s", duration: "13s" },
-  { top: "68%", left: "6%", delay: "1s", duration: "8s" },
-  { top: "8%", left: "90%", delay: "2s", duration: "11s" },
-];
-
-const Hero = () => {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Fond avec gradient subtil */}
-      <div className="absolute inset-0 bg-linear-to-br from-lion-dark via-lion-dark to-lion-electric bg-opacity-20"></div>
-      
-      {/* Particules décoratives */}
-      <div className="absolute inset-0 overflow-hidden">
-        {heroParticles.map((particle, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-lion-gold bg-opacity-30 rounded-full animate-float"
-            style={{
-              top: particle.top,
-              left: particle.left,
-              animationDelay: particle.delay,
-              animationDuration: particle.duration,
-            }}
-          />
-        ))}
+// Browser-only WebGL canvas to avoid SSR errors
+const LionScene = dynamic(() => import("./3d/LionScene"), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center bg-[#050505]">
+      <div className="text-center">
+        <div className="w-12 h-12 mx-auto mb-3 border-2 border-[#FFD700] border-t-transparent rounded-full animate-spin" />
+        <span className="text-xs uppercase tracking-widest text-[#8892B0]">Initialisation de la Forge 3D...</span>
       </div>
-      
-      <div className="relative z-10 max-w-4xl text-center px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+    </div>
+  ),
+});
+
+export default function Hero() {
+  const heroRef = useRef(null);
+  const contentRef = useRef(null);
+  const eyebrowRef = useRef(null);
+  const headlineRef = useRef(null);
+  const descRef = useRef(null);
+  const ctaRef = useRef(null);
+  const scrollIndicatorRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.from(eyebrowRef.current, {
+        y: 25,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.2,
+      })
+      .from(headlineRef.current, {
+        y: 35,
+        opacity: 0,
+        duration: 1.0,
+      }, "-=0.5")
+      .from(descRef.current, {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+      }, "-=0.6")
+      .from(ctaRef.current, {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+      }, "-=0.6")
+      .from(scrollIndicatorRef.current, {
+        opacity: 0,
+        duration: 1.0,
+      }, "-=0.4");
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleScrollToNext = () => {
+    const nextSection = document.getElementById("about-section");
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <section 
+      ref={heroRef}
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#050505]"
+    >
+      {/* 3D Realtime WebGL Canvas */}
+      <LionScene />
+
+      {/* Atmospheric Vignette & Contrast Shading to ensure text readability */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(5,5,5,0.25)_0%,rgba(5,5,5,0.85)_80%,rgba(5,5,5,0.98)_100%)] z-10" />
+
+      {/* Ambient Forge Spark Lines */}
+      <div className="absolute inset-0 pointer-events-none opacity-20 [background-image:linear-gradient(rgba(255,215,0,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,215,0,0.06)_1px,transparent_1px)] [background-size:64px_64px] z-10" />
+
+      {/* Hero Typography & Content Overlay */}
+      <div 
+        ref={contentRef}
+        className="relative z-20 max-w-5xl mx-auto px-6 text-center pt-24 pb-28 pointer-events-none"
+      >
+        {/* Eyebrow */}
+        <div ref={eyebrowRef} className="inline-flex items-center gap-2 mb-6 pointer-events-auto">
+          <div className="px-3.5 py-1.5 rounded-full bg-[#101114]/85 border border-[#FFD700]/30 shadow-lg backdrop-blur-md">
+            <span className="flex items-center gap-2 text-xs font-semibold tracking-[0.25em] text-[#FFD700] uppercase">
+              <Sparkles size={12} className="text-[#FF4500]" />
+              Agence Numérique & Technologique
+            </span>
+          </div>
+        </div>
+
+        {/* Main Headline & Brand Emphasis */}
+        <h1 
+          ref={headlineRef} 
+          className="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 uppercase leading-[1.05]"
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            Forgez votre succès numérique avec{" "}
-            <span className="text-gradient">LionForge</span>
-          </h1>
-        </motion.div>
-        
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl text-lion-light mb-10"
+          Forgez votre
+          <span className="block gradient-text mt-1">Succès Numérique.</span>
+          <span className="block text-2xl sm:text-3xl md:text-4xl text-[#8892B0] font-normal tracking-[0.2em] mt-3">
+            LION<span className="text-[#FFD700] font-bold">FORGE</span>.
+          </span>
+        </h1>
+
+        {/* Description */}
+        <p 
+          ref={descRef} 
+          className="text-base sm:text-lg md:text-xl text-[#F5F5F5]/85 max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
         >
-          Développement web & mobile, solutions sur mesure et innovation technologique.
-        </motion.p>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          Nous concevons des expériences digitales, développons des solutions technologiques sur mesure et accompagnons les entreprises dans leur transformation numérique.
+        </p>
+
+        {/* Action CTAs */}
+        <div 
+          ref={ctaRef} 
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 pointer-events-auto"
         >
           <Link
             href="/contact"
-            className="group relative bg-lion-gold text-lion-dark px-8 py-3 rounded-lg font-semibold 
-                     hover:bg-opacity-90 transition-all duration-300 
-                     shadow-lg shadow-lion-gold shadow-opacity-20 hover:shadow-xl hover:shadow-lion-gold hover:shadow-opacity-30
-                     transform hover:-translate-y-1 overflow-hidden"
+            className="w-full sm:w-auto forge-btn-primary px-8 py-4 rounded-xl text-sm font-semibold tracking-wider uppercase inline-flex items-center justify-center gap-2 shadow-xl"
           >
-            <span className="relative z-10">Demander un devis</span>
-            <div className="absolute inset-0 bg-white rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+            <span>Demander un devis</span>
+            <ArrowRight size={16} />
           </Link>
-          
-          <Link
-            href="/projects"
-            className="group relative border-2 border-lion-gold text-lion-gold px-8 py-3 rounded-lg font-semibold 
-                     hover:bg-lion-gold hover:bg-opacity-10 transition-all duration-300
-                     transform hover:-translate-y-1 overflow-hidden"
-          >
-            <span className="relative z-10">Voir nos projets</span>
-            <div className="absolute inset-0 bg-lion-gold bg-opacity-5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
-          </Link>
-        </motion.div>
 
-        {/* Icônes décoratives */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="flex justify-center gap-6 mt-16 text-lion-gold"
+          <Link
+            href="/services"
+            className="w-full sm:w-auto forge-btn-secondary px-8 py-4 rounded-xl text-sm font-semibold tracking-wider uppercase inline-flex items-center justify-center gap-2"
+          >
+            <span>Découvrir nos expertises</span>
+          </Link>
+        </div>
+      </div>
+
+      {/* Subtle Scroll Indicator */}
+      <div 
+        ref={scrollIndicatorRef}
+        className="absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-20 pointer-events-auto text-center"
+      >
+        <button
+          onClick={handleScrollToNext}
+          className="flex flex-col items-center gap-1.5 text-xs tracking-[0.2em] uppercase text-[#8892B0] hover:text-[#FFD700] transition-colors group cursor-pointer"
+          aria-label="Défiler vers la suite"
         >
-          <Code size={32} weight="duotone" className="opacity-50 hover:opacity-100 transition-opacity" />
-          <DeviceMobile size={32} weight="duotone" className="opacity-50 hover:opacity-100 transition-opacity" />
-          <Lightning size={32} weight="duotone" className="opacity-50 hover:opacity-100 transition-opacity" />
-        </motion.div>
+          <span className="opacity-70 group-hover:opacity-100 transition-opacity">Explorer la Forge</span>
+          <div className="w-5 h-8 rounded-full border border-[#FFD700]/30 flex items-start justify-center p-1">
+            <div className="w-1 h-2 bg-[#FFD700] rounded-full animate-bounce" />
+          </div>
+        </button>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}
